@@ -19,7 +19,7 @@ Note: This component uses new "Class" function introduced in 4D v18R3. Please do
 This is a 4D component, so you should build this source as 4D component and place it in the "Components" folder of your project root.
 
 ## Usage
-
+```
 var $cs_o; $cron_o; $daemon_o : Object
 
 $daemon_o:=New object
@@ -36,7 +36,7 @@ $cron_o.add($daemon_o).start()
 $cs_o:=Import Cron
 $cron_o:=$cs_o.new()
 $cron_o.stop()
-
+```
 ## License
 
 Please refer to "LICENSE" file.
