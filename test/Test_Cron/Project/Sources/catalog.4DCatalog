@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
+<base name="Test_Cron" uuid="D92312ECA1F0475A81F2513A45AECD01" collation_locale="ja">
+	<schema name="DEFAULT_SCHEMA"/>
+</base>
