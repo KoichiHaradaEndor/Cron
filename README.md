@@ -43,4 +43,4 @@ Please refer to "LICENSE" file.
 
 ## Release Note
 
-Initial release (2021-03-18)  
+Initial release (2021-03-18)
