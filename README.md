@@ -23,10 +23,10 @@ This is a 4D component, so you should build this source as 4D component and plac
 var $cs_o; $cron_o; $daemon_o : Object
 
 $daemon_o:=New object
-$daemon_o.name:="mydaemond"
-$daemon_o.method:="DaemonMethodName"
-$daemon_o.interval:="60"
-$daemon_o.parameter:=New object("param1"; "value1")
+$daemon_o.name:="mydaemond"  // Daemon process name
+$daemon_o.method:="DaemonMethodName"  // Method name that will be called in the daemon process repeatedly
+$daemon_o.interval:="60"  // Interval in second between the method is called
+$daemon_o.parameter:=New object("param1"; "value1")  // Parameter passed to the daemon method
 
 $cs_o:=Import Cron
 $cron_o:=$cs_o.Cron.new()
@@ -34,7 +34,7 @@ $cron_o.add($daemon_o).start()
 
 // On Exit
 $cs_o:=Import Cron
-$cron_o:=$cs_o.new()
+$cron_o:=$cs_o.Cron.new()
 $cron_o.stop()
 ```
 ## License
