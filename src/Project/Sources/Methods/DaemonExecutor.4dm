@@ -29,7 +29,7 @@ Use ($daemons_c)
 		
 		// when I test what happens if the time part exceeds 24:00:00, as of 4D v18R5, the date part is incremented
 		// and time part is ajusted accordingly.
-		$daemons_c[$indices_c[0]].next:=String:C10(Current date:C33; ISO date:K1:8; Time:C179(Current time:C178+$daemon_o.interval))
+		$daemons_c[$indices_c[0]].next:=CalcNextLaunchTime($daemon_o.interval)
 		$daemons_c[$indices_c[0]].executing:=False:C215
 		
 	End if 
