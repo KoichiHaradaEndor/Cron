@@ -17,5 +17,9 @@
 			"test_DateCalc"
 		]
 	},
-	"trash": {}
+	"trash": {
+		"groups": [
+			"(デフォルト)"
+		]
+	}
 }

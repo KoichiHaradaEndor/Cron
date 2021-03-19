@@ -32,7 +32,7 @@ $daemon1_o.method:="daemonTest"
 $daemon1_o.interval:=1  // <=== change interval
 $daemon1_o.parameter:=New object:C1471("start"; 1000)  // <=== change start
 
-$cron_o.add($daemon1_o).delete("daemontest2d").start()
+$cron_o.add($daemon1_o).delete("daemontest2d")
 
 TRACE:C157
 
