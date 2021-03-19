@@ -72,7 +72,6 @@ Function add($daemon_o : Object)->$this_o : cs:C1710.Cron
 	ASSERT:C1129(Value type:C1509($daemon_o.method)=Is text:K8:3; "The method attribute must be text type")
 	ASSERT:C1129($daemon_o.method#""; "The method attribute must not be empty string")
 	ASSERT:C1129($daemon_o.interval#Null:C1517; "The interval attribute must exists")
-	ASSERT:C1129(Value type:C1509($daemon_o.interval)=Is real:K8:4; "The interval attribute must be numeric type")  // need to compare as real
 	
 /**
 * Register a given daemon under cron's management
@@ -83,7 +82,7 @@ Function add($daemon_o : Object)->$this_o : cs:C1710.Cron
 	var $copiedDaemon_o : Object
 	var $daemons_c; $indices_c : Collection
 	
-	$daemon_o.next:=String:C10(Current date:C33; ISO date:K1:8; Current time:C178)  // set next launch time to now
+	$daemon_o.next:=CalcNextLaunchTime($daemon_o.interval)  // set next launch time
 	$daemon_o.executing:=False:C215  // set currently the daemon method is executing flag to false
 	$copiedDaemon_o:=OB Copy:C1225($daemon_o; ck shared:K85:29; Storage:C1525.Cron.Daemons)
 	

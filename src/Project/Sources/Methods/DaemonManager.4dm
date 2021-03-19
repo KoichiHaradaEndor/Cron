@@ -13,7 +13,7 @@ var $daemons_c; $indices_c : Collection
 var $daemon_o : Object
 var $status_t; $executorMethod_t : Text
 var $interval_l : Integer
-var $quit_b; $executing_b : Boolean
+var $quit_b : Boolean
 var $next_t; $now_t : Text
 
 $quit_b:=False:C215
@@ -62,7 +62,8 @@ Repeat
 				
 				$next_t:=$daemon_o.next
 				$now_t:=String:C10(Current date:C33; ISO date:K1:8; Current time:C178)
-				If ($next_t<=$now_t)
+				If ($next_t#"") & ($next_t<=$now_t)
+					// $next_t can be empty when the daemon interval is NOT supported format
 					
 					// Set executing flag to true to avoid duplicate launch
 					// The flag will be set again in the executor method

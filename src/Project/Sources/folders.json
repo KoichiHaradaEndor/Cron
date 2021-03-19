@@ -1,29 +1,21 @@
 ﻿{
-	"(クラス)": {},
-	"(テーブル)": {},
-	"(デフォルト)": {
-		"groups": [
-			"(クラス)",
-			"(テーブル)",
-			"(フォーム)",
-			"(プロジェクトメソッド)"
-		]
-	},
-	"(フォーム)": {},
-	"(プロジェクトメソッド)": {},
 	"Cron": {
 		"methods": [
+			"CalcNextLaunchTime",
 			"DaemonExecutor",
 			"DaemonManager",
+			"GetLastDayNumber",
 			"Import Cron"
 		],
 		"classes": [
 			"Cron"
 		]
 	},
-	"trash": {
-		"groups": [
-			"(デフォルト)"
+	"Test": {
+		"methods": [
+			"test_CalcNextLaunchTime",
+			"test_DateCalc"
 		]
-	}
+	},
+	"trash": {}
 }
