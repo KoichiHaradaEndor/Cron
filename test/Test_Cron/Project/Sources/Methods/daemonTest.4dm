@@ -1,4 +1,4 @@
-//%attributes = {"shared":true,"preemptive":"capable"}
+//%attributes = {"preemptive":"capable"}
 #DECLARE($parameter_o : Object)
 
 var counter_l : Integer

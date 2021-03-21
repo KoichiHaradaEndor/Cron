@@ -6,13 +6,13 @@ ds:C1482.Log.all().drop()
 
 $daemon1_o:=New object:C1471
 $daemon1_o.name:="daemontest1d"
-$daemon1_o.method:="daemonTest"
+$daemon1_o.function:=Formula:C1597(daemonTest)
 $daemon1_o.interval:=2
 $daemon1_o.parameter:=New object:C1471("start"; 0)
 
 $daemon2_o:=New object:C1471
 $daemon2_o.name:="daemontest2d"
-$daemon2_o.method:="daemonTest"
+$daemon2_o.function:=Formula:C1597(daemonTest)
 $daemon2_o.interval:=5
 $daemon2_o.parameter:=New object:C1471("start"; 100)
 
@@ -28,7 +28,7 @@ TRACE:C157
 
 $daemon1_o:=New object:C1471
 $daemon1_o.name:="daemontest1d"
-$daemon1_o.method:="daemonTest"
+$daemon1_o.function:=Formula:C1597(daemonTest)
 $daemon1_o.interval:=1  // <=== change interval
 $daemon1_o.parameter:=New object:C1471("start"; 1000)  // <=== change start
 
