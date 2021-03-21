@@ -1,14 +1,17 @@
 ﻿{
 	"Cron": {
 		"methods": [
-			"CalcNextLaunchTime",
 			"DaemonExecutor",
 			"DaemonManager",
-			"GetLastDayNumber",
 			"Import Cron"
 		],
 		"classes": [
 			"Cron"
+		]
+	},
+	"Daemon": {
+		"classes": [
+			"Daemon"
 		]
 	},
 	"Test": {
@@ -17,9 +20,11 @@
 			"test_DateCalc"
 		]
 	},
-	"trash": {
-		"groups": [
-			"(デフォルト)"
+	"Utility": {
+		"methods": [
+			"CalcNextLaunchTime",
+			"GetLastDayNumber"
 		]
-	}
+	},
+	"trash": {}
 }

@@ -30,8 +30,12 @@ Case of
 	: ($valueType_l=Is longint:K8:6) | ($valueType_l=Is real:K8:4)
 		
 		// $interval_v is interval in second
-		$interval_l:=$interval_v
-		$next_t:=String:C10(Current date:C33; ISO date:K1:8; Time:C179(Current time:C178+$interval_l))
+		$interval_l:=Abs:C99($interval_v)
+		If ($interval_l>0)
+			
+			$next_t:=String:C10(Current date:C33; ISO date:K1:8; Time:C179(Current time:C178+$interval_l))
+			
+		End if 
 		
 	: ($valueType_l=Is text:K8:3)
 		
@@ -131,7 +135,7 @@ Case of
 				
 				$next_t:=String:C10($current_d; ISO date:K1:8; Time:C179($time_t))
 				
-			: (Match regex:C1019("^every (\\d+) (hours|hrs|minutes|mins|seconds|secs)$"; $interval_t; 1; $positons_al; $lengths_al))
+			: (Match regex:C1019("^every (\\d+) (hours|hrs|hour|hr|minutes|mins|minute|min|seconds|secs|second|sec)$"; $interval_t; 1; $positons_al; $lengths_al))
 				
 				// "every nn {hours | minutes | seconds}" => the daemon is executed after given interval
 				
@@ -140,15 +144,15 @@ Case of
 				
 				// convert given value in second
 				Case of 
-					: ($unit_t="hours") | ($unit_t="hrs")
+					: ($unit_t="hours") | ($unit_t="hrs") | ($unit_t="hour") | ($unit_t="hr")
 						
 						$interval_l:=Num:C11($value_t)*60*60
 						
-					: ($unit_t="minutes") | ($unit_t="mins")
+					: ($unit_t="minutes") | ($unit_t="mins") | ($unit_t="minute") | ($unit_t="min")
 						
 						$interval_l:=Num:C11($value_t)*60
 						
-					: ($unit_t="seconds") | ($unit_t="secs")
+					: ($unit_t="seconds") | ($unit_t="secs") | ($unit_t="second") | ($unit_t="sec")
 						
 						$interval_l:=Num:C11($value_t)
 						

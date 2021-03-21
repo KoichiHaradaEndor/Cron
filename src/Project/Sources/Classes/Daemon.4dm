@@ -1,0 +1,46 @@
+/**
+* The Daemon class is used to store daemon prosess information,
+* especially its name that is also used for worker process name, 
+* function that is executed in the dedicated worker repeatedly,
+* interval that defines when the daemon should be executed,
+* and parameter object which is passed to the function when it is executed each time.
+*/
+
+Class constructor(\
+$name_t : Text; \
+$function_o : 4D:C1709.Function; \
+$interval_v : Variant; \
+$parameter_o : Object)
+	
+/**
+* The Daemon class instance object consists of
+* name : Text - The name of the daemon process, used to identify among all the other daemons and as worker name
+* function : 4D.Function - Function object that will be executed in daemon worker
+* interval : Integer - Interval between the next daemon worker is called, in second
+* parameter : Object - Parameter to be passed to the function (optional)
+*/
+	
+	ASSERT:C1129(Count parameters:C259>=3; "Lack of parameters")
+	ASSERT:C1129(Value type:C1509($name_t)=Is text:K8:3; "The name parameter must be text type")
+	ASSERT:C1129($name_t#""; "The name parameter must not be empty string")
+	ASSERT:C1129(Value type:C1509($function_o)=Is object:K8:27; "The function parameter must be object type")
+	ASSERT:C1129((Value type:C1509($interval_v)=Is text:K8:3) | (Value type:C1509($interval_v)=Is longint:K8:6) | (Value type:C1509($interval_v)=Is real:K8:4); "The interval parameter must be text ot numeric type")
+	Case of 
+		: (Value type:C1509($interval_v)=Is text:K8:3)
+			
+			ASSERT:C1129(CalcNextLaunchTime($interval_v)#""; "The interval parameter is not correct format")
+			
+		: ((Value type:C1509($interval_v)=Is longint:K8:6) | (Value type:C1509($interval_v)=Is real:K8:4))
+			
+			ASSERT:C1129($interval_v#0; "The interval parameter must not be zero")
+			
+	End case 
+	
+	This:C1470.name:=$name_t
+	This:C1470.function:=$function_o
+	This:C1470.interval:=$interval_v
+	If ($parameter_o#Null:C1517)
+		This:C1470.parameter:=$parameter_o
+	End if 
+	
+	
