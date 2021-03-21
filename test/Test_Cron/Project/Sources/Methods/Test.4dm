@@ -4,34 +4,23 @@ var $winRef_l : Integer
 
 ds:C1482.Log.all().drop()
 
-$daemon1_o:=New object:C1471
-$daemon1_o.name:="daemontest1d"
-$daemon1_o.function:=Formula:C1597(daemonTest)
-$daemon1_o.interval:=2
-$daemon1_o.parameter:=New object:C1471("start"; 0)
-
-$daemon2_o:=New object:C1471
-$daemon2_o.name:="daemontest2d"
-$daemon2_o.function:=Formula:C1597(daemonTest)
-$daemon2_o.interval:=5
-$daemon2_o.parameter:=New object:C1471("start"; 100)
-
+// Import Cron is the only method shared with host application
 $cs_o:=Import Cron
+
+// Creates Daemon objects
+$daemon1_o:=$cs_o.Daemon.new("daemontest1d"; Formula:C1597(daemonTest); 2; New object:C1471("start"; 0))
+$daemon2_o:=$cs_o.Daemon.new("daemontest2d"; Formula:C1597(daemonTest); 5; New object:C1471("start"; 100))
+
+// Creates Cron objects and configure it
 $cron_o:=$cs_o.Cron.new()
 $cron_o.add($daemon1_o).add($daemon2_o).setInterval(1).start()
 
 TRACE:C157
 
-//$cron_o.stop()
+// Modifies interval and parameter of the "daemontest1d" daemon
+$daemon1_o:=$cs_o.Daemon.new("daemontest1d"; Formula:C1597(daemonTest); 1; New object:C1471("start"; 1000))
 
-//TRACE
-
-$daemon1_o:=New object:C1471
-$daemon1_o.name:="daemontest1d"
-$daemon1_o.function:=Formula:C1597(daemonTest)
-$daemon1_o.interval:=1  // <=== change interval
-$daemon1_o.parameter:=New object:C1471("start"; 1000)  // <=== change start
-
+// then overwrtite existing one and remove "daemontest2d"
 $cron_o.add($daemon1_o).delete("daemontest2d")
 
 TRACE:C157

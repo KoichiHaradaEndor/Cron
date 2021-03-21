@@ -6,13 +6,13 @@
 
 ## Description
 
-By Installing this component into your 4D project, several methods are added to your 4D project, that can be used to manage daemon processes.
+By Installing this component into your 4D project, one method is added to your 4D project, that can be used to manage daemon processes.
 
 ## Requirement
 
-4D v18R5 or above
+This component uses new "Class" function introduced in 4D v18R3. Please do not open it with 4D v18R2 and under.
 
-Note: This component uses new "Class" function introduced in 4D v18R3. Please do not open it with 4D v18R2 and under.
+Developed and tested with 4D v18R5.
 
 ## Install
 
@@ -22,13 +22,10 @@ This is a 4D component, so you should build this source as 4D component and plac
 ```
 var $cs_o; $cron_o; $daemon_o : Object
 
-$daemon_o:=New object
-$daemon_o.name:="mydaemond"  // Daemon process name
-$daemon_o.method:="DaemonMethodName"  // Method name that will be called in the daemon process repeatedly
-$daemon_o.interval:="60"  // Interval in second between the method is called
-$daemon_o.parameter:=New object("param1"; "value1")  // Parameter passed to the daemon method
-
 $cs_o:=Import Cron
+
+$daemon_o:=$cs_o.Daemon.new("mydaemond"; Formula(DaemonMethodName); 60; New object("param1"; "value1"))
+
 $cron_o:=$cs_o.Cron.new()
 $cron_o.add($daemon_o).start()
 
@@ -44,3 +41,5 @@ Please refer to "LICENSE" file.
 ## Release Note
 
 Initial release (2021-03-18)
+
+EXECUTE METHOD => Formula (2021-03-21)
