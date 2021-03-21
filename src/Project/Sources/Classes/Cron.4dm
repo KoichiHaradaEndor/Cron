@@ -1,13 +1,14 @@
 /**
 * The "Cron" class is used to manage user daemon processes
 *
-* A daemon is a method that is executed in a dedicated worker process repeatedly.
-* The method, worker name and interval are specified when Cron.add() function is called.
-* The method will be executed in the named worker process repeatedly using the specified interval.
-* So the method need not contain loop structure.
+* A daemon is a function that is executed in a dedicated worker process repeatedly.
+* The function, worker name and interval are specified when Cron.add() function is called.
+* The function will be executed in the named worker process repeatedly using the specified interval.
+* So the function need not contain loop structure.
 *
-* Note : The daemon name is used as the name of corresponding worker name.
+* Note : The daemon name is used as the name for the corresponding worker name.
 * So avoid using the same name with other worker names.
+* Otherwise it will be overwritted when added to the daemon list.
 * You may want to add "d" character at the end of the name to indicate it is daemon worker process.
 */
 
@@ -49,29 +50,7 @@ Class constructor
 		
 	End use 
 	
-Function add($daemon_o : Object)->$this_o : cs:C1710.Cron
-	
-/**
-* The daemon object parameter consists of:
-* name : Text - The name of the daemon process, used to identify among all the other daemons and as worker name
-* method : Text - Method name that will be executed in daemon worker
-* interval : Integer - Interval between the next daemon worker is called, in second
-* parameter : Object - Parameter to be passed to the method (optional)
-*
-* Note1 : The existence of the method name is NOT checked in this component.
-* It is developer's responsible.
-*
-* Note2 : The method in the host application, intended to use as daemon, must be shared with components.
-*/
-	
-	ASSERT:C1129($daemon_o#Null:C1517)
-	ASSERT:C1129($daemon_o.name#Null:C1517; "The name attribute must exists")
-	ASSERT:C1129(Value type:C1509($daemon_o.name)=Is text:K8:3; "The name attribute must be text type")
-	ASSERT:C1129($daemon_o.name#""; "The name attribute must not be empty string")
-	ASSERT:C1129($daemon_o.method#Null:C1517; "The method attribute must exists")
-	ASSERT:C1129(Value type:C1509($daemon_o.method)=Is text:K8:3; "The method attribute must be text type")
-	ASSERT:C1129($daemon_o.method#""; "The method attribute must not be empty string")
-	ASSERT:C1129($daemon_o.interval#Null:C1517; "The interval attribute must exists")
+Function add($daemon_o : cs:C1710.Daemon)->$this_o : cs:C1710.Cron
 	
 /**
 * Register a given daemon under cron's management
@@ -83,7 +62,7 @@ Function add($daemon_o : Object)->$this_o : cs:C1710.Cron
 	var $daemons_c; $indices_c : Collection
 	
 	$daemon_o.next:=CalcNextLaunchTime($daemon_o.interval)  // set next launch time
-	$daemon_o.executing:=False:C215  // set currently the daemon method is executing flag to false
+	$daemon_o.executing:=False:C215  // set "currently the daemon function is executing" flag to false
 	$copiedDaemon_o:=OB Copy:C1225($daemon_o; ck shared:K85:29; Storage:C1525.Cron.Daemons)
 	
 	$daemons_c:=Storage:C1525.Cron.Daemons
@@ -92,12 +71,12 @@ Function add($daemon_o : Object)->$this_o : cs:C1710.Cron
 		$indices_c:=$daemons_c.indices("name = :1"; $copiedDaemon_o.name)
 		If ($indices_c.length=0)
 			
-			// The cron has not been registered
+			// The daemon has not been registered
 			$daemons_c.push($copiedDaemon_o)
 			
 		Else 
 			
-			// The cron which has the same name exists,
+			// The daemon which has the same name exists,
 			// then replace with it
 			$daemons_c[$indices_c[0]]:=$copiedDaemon_o
 			

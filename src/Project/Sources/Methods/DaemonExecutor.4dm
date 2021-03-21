@@ -12,11 +12,11 @@ var $daemons_c; $indices_c : Collection
 
 If ($daemon_o.parameter=Null:C1517)
 	
-	EXECUTE METHOD:C1007($daemon_o.method)
+	$daemon_o.function()
 	
 Else 
 	
-	EXECUTE METHOD:C1007($daemon_o.method; *; $daemon_o.parameter)
+	$daemon_o.function($daemon_o.parameter)
 	
 End if 
 
@@ -27,8 +27,6 @@ Use ($daemons_c)
 	$indices_c:=$daemons_c.indices("name = :1"; $daemon_o.name)
 	If ($indices_c.length>0)
 		
-		// when I test what happens if the time part exceeds 24:00:00, as of 4D v18R5, the date part is incremented
-		// and time part is ajusted accordingly.
 		$daemons_c[$indices_c[0]].next:=CalcNextLaunchTime($daemon_o.interval)
 		$daemons_c[$indices_c[0]].executing:=False:C215
 		
