@@ -1,15 +1,5 @@
 /**
 * The "Cron" class is used to manage user daemon processes
-*
-* A daemon is a function that is executed in a dedicated worker process repeatedly.
-* The function, worker name and interval are specified when Cron.add() function is called.
-* The function will be executed in the named worker process repeatedly using the specified interval.
-* So the function need not contain loop structure.
-*
-* Note : The daemon name is used as the name for the corresponding worker name.
-* So avoid using the same name with other worker names.
-* Otherwise it will be overwritted when added to the daemon list.
-* You may want to add "d" character at the end of the name to indicate it is daemon worker process.
 */
 
 Class constructor
