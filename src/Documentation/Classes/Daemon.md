@@ -35,6 +35,8 @@ If the `Daemon` object which has the same name has alredy been registered, it wi
 
 `function` is a user function generated via 4D's `Formula` command. It is the function that is called repeatedly as daemon.
 
+The function must be "thread-safe" (it can be set to "indifferent") since the component methods are tagged "thread-safe".
+
 The `interval` parameter defines the interval time between a daemon is executed.
 
 It can take the following formats:
