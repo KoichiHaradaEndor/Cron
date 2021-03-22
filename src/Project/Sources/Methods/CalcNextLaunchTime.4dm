@@ -9,7 +9,7 @@
 * "every nn {hours | hrs | minutes | mins | seconds | secs}" => the daemon is executed after given interval
 *
 * Note : when using "on the nn day at hh:mm" format, day numbers of the end of months are not taken into account.
-* So please use "last" keyword when "nn" should indicate 29nd day and after.
+* So please use "last" keyword when "nn" should indicate 29th day and after.
 */
 
 #DECLARE($interval_v : Variant)->$next_t : Text

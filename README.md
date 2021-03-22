@@ -8,13 +8,13 @@
 
 By Installing this component into your 4D project, one method is added to your 4D project, that can be used to import Cron component's class store.
 
-[Import Cron](Documentation\Methods\Import Cron.md)
+[Import Cron](src/Documentation/Methods/Import Cron.md)
 
 After you import the class store, you can instantiate Cron and Daemon classes.
 
-[Cron Class](Documentation\Classes\Cron.md)
+[Cron Class](src/Documentation/Classes/Cron.md)
 
-[Daemon Class](Documentation\Classes\Daemon.md)
+[Daemon Class](src/Documentation/Classes/Daemon.md)
 
 ## Requirement
 

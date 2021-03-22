@@ -1,9 +1,11 @@
 ﻿<!-- () -> Object -->
+# Import Cron
+
 ## Description
 
 This method is used to import class store of the Cron component.
 
-When using Cron component, first you will need to import it and then, you can use Cron and also Daemon object.
+The class store of the Cron component includes `Cron` and `Daemon` object.
 
 ## Example
 
@@ -20,6 +22,9 @@ $cron_o:=$cs_o.Cron.new()
 
 // Register daemon object under the cron's management
 $cron_o.add($daemon_o)
+
+// Set cron management interval to 10 secs.
+$cron_o.setInterval(10)
 
 // then start daemon process(es)
 $cron_o.start()
