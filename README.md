@@ -18,7 +18,8 @@ After you import the class store, you can instantiate Cron and Daemon classes.
 
 ## Requirement
 
-This component uses new "Class" function introduced in 4D v18R3. Please do not open it with 4D v18R2 and under.
+This component uses new "Class" function introduced in 4D v18R3.
+This component uses new "var" variable declaration syntax introduced in v18R5.
 
 Developed and tested with 4D v18R5.
 
