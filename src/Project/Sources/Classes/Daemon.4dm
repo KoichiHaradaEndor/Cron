@@ -33,7 +33,7 @@ $parameter_o : Object)
 	ASSERT:C1129(Count parameters:C259>=3; "Lack of parameters")
 	ASSERT:C1129(Value type:C1509($name_t)=Is text:K8:3; "The name parameter must be text type")
 	ASSERT:C1129($name_t#""; "The name parameter must not be empty string")
-	ASSERT:C1129(Value type:C1509($function_o)=Is object:K8:27; "The function parameter must be object type")
+	ASSERT:C1129(OB Instance of:C1731($function_o; 4D:C1709.Function); "The function parameter must be instance of 4D.Function")
 	ASSERT:C1129((Value type:C1509($interval_v)=Is text:K8:3) | (Value type:C1509($interval_v)=Is longint:K8:6) | (Value type:C1509($interval_v)=Is real:K8:4); "The interval parameter must be text ot numeric type")
 	Case of 
 		: (Value type:C1509($interval_v)=Is text:K8:3)
@@ -49,7 +49,7 @@ $parameter_o : Object)
 	This:C1470.name:=$name_t
 	This:C1470.function:=$function_o
 	This:C1470.interval:=$interval_v
-	If ($parameter_o#Null:C1517)
+	If (Count parameters:C259>=4)
 		This:C1470.parameter:=$parameter_o
 	End if 
 	
