@@ -50,8 +50,30 @@ Function add($daemon_o : cs:C1710.Daemon)->$this_o : cs:C1710.Cron
 	
 	var $copiedDaemon_o : Object
 	var $daemons_c; $indices_c : Collection
+	var $type_l : Integer
 	
-	$daemon_o.next:=CalcNextLaunchTime($daemon_o.interval)  // set next launch time
+	$type_l:=Value type:C1509($daemon_o.interval)
+	
+	// set next launch time
+	Case of 
+		: ($type_l=Is text:K8:3)
+			
+			If ($daemon_o.interval="every @")
+				
+				$daemon_o.next:=CalcNextLaunchTime("now")
+				
+			Else 
+				
+				$daemon_o.next:=CalcNextLaunchTime($daemon_o.interval)
+				
+			End if 
+			
+		: ($type_l=Is real:K8:4)
+			
+			$daemon_o.next:=CalcNextLaunchTime("now")
+			
+	End case 
+	
 	$daemon_o.executing:=False:C215  // set "currently the daemon function is executing" flag to false
 	$copiedDaemon_o:=OB Copy:C1225($daemon_o; ck shared:K85:29; Storage:C1525.Cron.Daemons)
 	

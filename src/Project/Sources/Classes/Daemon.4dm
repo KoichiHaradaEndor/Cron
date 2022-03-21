@@ -26,7 +26,7 @@ $parameter_o : Object)
 * The Daemon class instance object consists of
 * name : Text - The name of the daemon process, used to identify among all the other daemons and as worker name
 * function : 4D.Function - Function object that will be executed in daemon worker
-* interval : Integer - Interval between the next daemon worker is called
+* interval : Text or Integer - Interval between the next daemon worker is called
 * parameter : Object - Parameter to be passed to the function (optional)
 */
 	
