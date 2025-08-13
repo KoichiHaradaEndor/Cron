@@ -1,0 +1,31 @@
+﻿{
+	"(Daemon)": {},
+	"Cron": {
+		"methods": [
+			"DaemonExecutor",
+			"DaemonManager",
+			"Import Cron"
+		],
+		"classes": [
+			"Cron",
+			"Daemon"
+		]
+	},
+	"Test": {
+		"methods": [
+			"test_CalcNextLaunchTime",
+			"test_DateCalc"
+		]
+	},
+	"Utility": {
+		"methods": [
+			"CalcNextLaunchTime",
+			"GetLastDayNumber"
+		]
+	},
+	"trash": {
+		"groups": [
+			"(Daemon)"
+		]
+	}
+}
