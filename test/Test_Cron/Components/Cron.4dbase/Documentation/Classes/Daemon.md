@@ -11,8 +11,6 @@ The `Daemon` is used to store daemon prosess information, especially
 
 A daemon executed in a dedicated worker process repeatedly.
 
-The function, worker name and interval are specified when Cron.add() function is called.
-
 The function will be executed in the named worker process repeatedly using the specified interval. So the function need not contain loop structure.
 
 ## Constructor
@@ -35,6 +33,8 @@ If the `Daemon` object which has the same name has alredy been registered, it wi
 
 `function` is a user function generated via 4D's `Formula` command. It is the function that is called repeatedly as daemon.
 
+The function must be "thread-safe" (it can be set to "indifferent") since the component methods are tagged "thread-safe".
+
 The `interval` parameter defines the interval time between a daemon is executed.
 
 It can take the following formats:
@@ -46,7 +46,7 @@ It can take the following formats:
 |"on the nnth day at hh:mm"|Text|The daemon is executed on the day at the time every month, where "nn" can be the day of the month (numeric) or "last" that indicates the last day of the month|
 |"every nn {hour(s) / hr(s) / minute(s) / min(s) / second(s) / sec(s)}"|Text|The daemon is executed after given interval|
 
-Note that when using "on the nnth day at hh:mm" format, day numbers of the end of months are not taken into account. So please use "last" keyword when "nn" should indicate 29th day and after.
+Note that when using "on the nnth day at hh:mm" format, since last day numbers of months vary, use "last" keyword when "nn" should indicate 29th day and after.
 
 The optional `parameter` parameter will be passed to the function when it is called each time.
 

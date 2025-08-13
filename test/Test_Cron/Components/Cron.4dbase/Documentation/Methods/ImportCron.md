@@ -5,7 +5,7 @@
 
 This method is used to import class store of the Cron component.
 
-The class store of the Cron component includes `Cron` and `Daemon` object.
+The class store of the Cron component includes `Cron` and `Daemon` class.
 
 ## Example
 
