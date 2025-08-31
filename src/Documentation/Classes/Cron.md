@@ -9,15 +9,22 @@ Once `Daemon` are registered under the daemon management process, the process re
 
 A `Daemon` is executed in a dedicated worker process so process objects such as current selection, current record, process variable are kept.
 
+This class is declared as shared singleton class.
+
 ## Constructor
 
-**Cron.new** () -> `Cron`
+**Cron.me** () -> `Cron`
 
 |Name|Type||Description||
 |-----|-----|-----|-----|-----|
 |return|Object|&#x2190;|`Cron` object||
 
 This function instantiate and returns the Cron object.
+
+```4d
+var $cron_o : cs.Cron.Cron
+$cron_o:=cs.Cron.Cron.me
+```
 
 ---
 
