@@ -1,0 +1,125 @@
+{
+	"_method_": {
+		"Import Cron": {
+			"Syntax": "**Import Cron**()->cs_o : Object",
+			"Params": [
+				[
+					"cs_o",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		}
+	},
+	"cs.Cron": {
+		"Cron": {
+			"new()": {
+				"Syntax": "**.new**()",
+				"Params": [],
+				"Summary": ""
+			}
+		},
+		"Daemon": {
+			"new()": {
+				"Syntax": "**.new**( *name_t* : Text; *function_o* : 4D.Function; *interval_v* : Variant; *parameter_o* : Object )",
+				"Params": [
+					[
+						"name_t",
+						"Text",
+						"->"
+					],
+					[
+						"function_o",
+						"4D.Function",
+						"->"
+					],
+					[
+						"interval_v",
+						"Variant",
+						"->"
+					],
+					[
+						"parameter_o",
+						"Object",
+						"->"
+					]
+				],
+				"Summary": ""
+			}
+		}
+	},
+	"Cron": {
+		"setInterval()": {
+			"Syntax": "**.setInterval**( *interval_l* : Integer ) : cs.Cron.Cron",
+			"Params": [
+				[
+					"interval_l",
+					"Integer",
+					"->"
+				],
+				[
+					"",
+					"cs.Cron.Cron",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"start()": {
+			"Syntax": "**.start**() : cs.Cron.Cron",
+			"Params": [
+				[
+					"",
+					"cs.Cron.Cron",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"delete()": {
+			"Syntax": "**.delete**( *name_t* : Text ) : cs.Cron.Cron",
+			"Params": [
+				[
+					"name_t",
+					"Text",
+					"->"
+				],
+				[
+					"",
+					"cs.Cron.Cron",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"stop()": {
+			"Syntax": "**.stop**() : cs.Cron.Cron",
+			"Params": [
+				[
+					"",
+					"cs.Cron.Cron",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"add()": {
+			"Syntax": "**.add**( *daemon_o* : cs.Cron.Daemon ) : cs.Cron.Cron",
+			"Params": [
+				[
+					"daemon_o",
+					"cs.Cron.Daemon",
+					"->"
+				],
+				[
+					"",
+					"cs.Cron.Cron",
+					"<-"
+				]
+			],
+			"Summary": ""
+		}
+	},
+	"Daemon": {}
+}

@@ -2,45 +2,17 @@
 * The "Cron" class is used to manage user daemon processes
 */
 
-Class constructor
+property _status : Text
+property _interval : Integer
+property _daemons : Collection
+
+shared singleton Class constructor
 	
-/**
-* Initialize shared objects and collections using Singleton pattern
-*/
+	This:C1470._status:="Initialized"
+	This:C1470._interval:=60  // default interval is 60 sec
+	This:C1470._daemons:=New shared collection:C1527
 	
-	Use (Storage:C1525)
-		
-		If (Storage:C1525.Cron=Null:C1517)
-			
-			Storage:C1525.Cron:=New shared object:C1526
-			
-		End if 
-		
-	End use 
-	
-	Use (Storage:C1525.Cron)
-		
-		If (Storage:C1525.Cron.Daemons=Null:C1517)
-			
-			Storage:C1525.Cron.Daemons:=New shared collection:C1527
-			
-		End if 
-		
-		If (Storage:C1525.Cron.Status=Null:C1517)
-			
-			Storage:C1525.Cron.Status:="Initialized"
-			
-		End if 
-		
-		If (Storage:C1525.Cron.Interval=Null:C1517)
-			
-			Storage:C1525.Cron.Interval:=60  // default interval is 60 sec
-			
-		End if 
-		
-	End use 
-	
-Function add($daemon_o : cs:C1710.Daemon)->$this_o : cs:C1710.Cron
+shared Function add($daemon_o : cs:C1710.Daemon) : cs:C1710.Cron
 	
 /**
 * Register a given daemon under cron's management
@@ -49,56 +21,42 @@ Function add($daemon_o : cs:C1710.Daemon)->$this_o : cs:C1710.Cron
 */
 	
 	var $copiedDaemon_o : Object
-	var $daemons_c; $indices_c : Collection
-	var $type_l : Integer
+	var $daemons_c : Collection
+	var $type_l; $index_l : Integer
 	
-	$type_l:=Value type:C1509($daemon_o.interval)
+	$type_l:=Value type:C1509($daemon_o._interval)
 	
 	// set next launch time
 	Case of 
 		: ($type_l=Is text:K8:3)
-			
-			If ($daemon_o.interval="every @")
-				
-				$daemon_o.next:=CalcNextLaunchTime("now")
-				
+			If ($daemon_o._interval="every @")
+				$daemon_o._updateNextLaunchTime("now")
 			Else 
-				
-				$daemon_o.next:=CalcNextLaunchTime($daemon_o.interval)
-				
+				$daemon_o._updateNextLaunchTime()
 			End if 
-			
-		: ($type_l=Is real:K8:4)
-			
-			$daemon_o.next:=CalcNextLaunchTime("now")
-			
+		: ($type_l=Is real:K8:4) || ($type_l=Is longint:K8:6)
+			$daemon_o._updateNextLaunchTime("now")
 	End case 
 	
-	$daemon_o.executing:=False:C215  // set "currently the daemon function is executing" flag to false
-	$copiedDaemon_o:=OB Copy:C1225($daemon_o; ck shared:K85:29; Storage:C1525.Cron.Daemons)
+	// set executing flag to False
+	$daemon_o._setExecuting(False:C215)
 	
-	$daemons_c:=Storage:C1525.Cron.Daemons
-	Use ($daemons_c)
-		
-		$indices_c:=$daemons_c.indices("name = :1"; $copiedDaemon_o.name)
-		If ($indices_c.length=0)
-			
-			// The daemon has not been registered
-			$daemons_c.push($copiedDaemon_o)
-			
-		Else 
-			
-			// The daemon which has the same name exists,
-			// then replace with it
-			$daemons_c[$indices_c[0]]:=$copiedDaemon_o
-			
-		End if 
-		
-	End use 
+	$daemons_c:=This:C1470._daemons
+	$copiedDaemon_o:=OB Copy:C1225($daemon_o; ck shared:K85:29; $daemons_c)
 	
-	$this_o:=This:C1470
+	$index_l:=$daemons_c.findIndex(Formula:C1597($1.value._name=$2); $copiedDaemon_o._name)
+	If ($index_l=-1)
+		// The daemon has not been registered
+		$daemons_c.push($copiedDaemon_o)
+	Else 
+		// The daemon which has the same name exists,
+		// then replace with it
+		$daemons_c[$index_l]:=$copiedDaemon_o
+	End if 
 	
-Function delete($name_t : Text)->$this_o : cs:C1710.Cron
+	return This:C1470
+	
+shared Function delete($name_t : Text) : cs:C1710.Cron
 	
 /**
 * Remove the specified daemon from Daemons list
@@ -108,62 +66,74 @@ Function delete($name_t : Text)->$this_o : cs:C1710.Cron
 	var $daemons_c; $indices_c : Collection
 	var $index_l : Integer
 	
-	$daemons_c:=Storage:C1525.Cron.Daemons
-	Use ($daemons_c)
-		
-		$indices_c:=$daemons_c.indices("name = :1"; $name_t)
-		
-		For ($index_l; $indices_c.length-1; 0; -1)
-			
-			$daemons_c.remove($indices_c[$index_l])
-			
-		End for 
-		
-	End use 
+	$daemons_c:=This:C1470._daemons
+	$indices_c:=$daemons_c.indices("_name = :1"; $name_t)
 	
-	$this_o:=This:C1470
+	For ($index_l; $indices_c.length-1; 0; -1)
+		$daemons_c.remove($indices_c[$index_l])
+	End for 
 	
-Function start()->$this_o : cs:C1710.Cron
+	return This:C1470
+	
+shared Function start() : cs:C1710.Cron
 	
 /**
 * Call this function to start cron manager worker process, so the daemon processes.
 */
 	
-	Use (Storage:C1525.Cron)
-		
-		Storage:C1525.Cron.Status:="Executing"
-		
-	End use 
-	
+	This:C1470._status:="Executing"
 	CALL WORKER:C1389("crond (Cron component)"; "DaemonManager")
+	return This:C1470
 	
-	$this_o:=This:C1470
-	
-Function stop()->$this_o : cs:C1710.Cron
+shared Function stop() : cs:C1710.Cron
 	
 /**
 * Call this function to stop cron manager worker process.
 */
 	
-	Use (Storage:C1525.Cron)
-		
-		Storage:C1525.Cron.Status:="Stopped"
-		
-	End use 
+	This:C1470._status:="Stopped"
+	return This:C1470
 	
-	$this_o:=This:C1470
-	
-Function setInterval($interval_l : Integer)->$this_o : cs:C1710.Cron
+shared Function setInterval($interval_l : Integer) : cs:C1710.Cron
 	
 /**
 * This function is used to set the Cron manager execution interval, in second
 */
 	
-	Use (Storage:C1525.Cron)
-		
-		Storage:C1525.Cron.Interval:=$interval_l
-		
-	End use 
+	This:C1470._interval:=Abs:C99($interval_l)
+	return This:C1470
 	
-	$this_o:=This:C1470
+shared Function _getStatus() : Text
+	
+	return This:C1470._status
+	
+shared Function _getDaemons() : Collection
+	
+	return This:C1470._daemons
+	
+shared Function _setDaemonExecutingFlag($name_t : Text; $flag_b : Boolean)
+	
+	var $index_l : Integer
+	var $daemon_o : cs:C1710.Daemon
+	
+	$index_l:=This:C1470._daemons.findIndex(Formula:C1597($1.value._name=$2); $name_t)
+	If ($index_l=-1)
+		return 
+	End if 
+	
+	$daemon_o:=This:C1470._daemons[$index_l]
+	$daemon_o._setExecuting($flag_b)
+	
+shared Function _updateDaemonNextLaunchTime($name_t : Text)
+	
+	var $index_l : Integer
+	var $daemon_o : cs:C1710.Daemon
+	
+	$index_l:=This:C1470._daemons.findIndex(Formula:C1597($1.value._name=$2); $name_t)
+	If ($index_l=-1)
+		return 
+	End if 
+	
+	$daemon_o:=This:C1470._daemons[$index_l]
+	$daemon_o._updateNextLaunchTime()
 	
