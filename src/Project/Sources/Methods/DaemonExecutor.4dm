@@ -36,5 +36,5 @@ Else
 End if 
 
 // update next launch time
-$cron_o._setDaemonExecutingFlag($daemonName_t; False:C215)
 $cron_o._updateDaemonNextLaunchTime($daemonName_t)
+$cron_o._setDaemonExecutingFlag($daemonName_t; False:C215)
