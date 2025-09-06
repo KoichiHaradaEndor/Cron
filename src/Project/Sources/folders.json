@@ -12,14 +12,10 @@
 	},
 	"Test": {
 		"methods": [
-			"DaemonMethod60",
-			"DaemonMethodAt0000",
-			"DaemonMethodEveryHour",
-			"DaemonMethodEveryMin",
-			"DaemonMethodEverySec",
+			"DaemonMethod",
 			"test_CalcNextLaunchTime",
-			"test_cron",
-			"test_DateCalc",
+			"test_startCron",
+			"test_stopCron",
 			"writeLog"
 		]
 	},

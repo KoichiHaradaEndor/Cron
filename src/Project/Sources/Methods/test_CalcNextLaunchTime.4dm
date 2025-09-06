@@ -5,6 +5,10 @@ var $daemon_o : cs:C1710.Daemon
 
 $daemon_o:=cs:C1710.Daemon.new("test"; Formula:C1597(1+1); 3)
 
+$interval_t:="every Saturday at 15:00"
+$next_t:=$daemon_o._calcNextLaunchTime($interval_t)
+ALERT:C41($next_t)
+
 $interval_l:=300  // 5 mins later
 $next_t:=$daemon_o._calcNextLaunchTime($interval_l)
 ALERT:C41($next_t)
