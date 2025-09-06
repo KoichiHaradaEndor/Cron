@@ -1,5 +1,4 @@
-﻿{
-	"(Daemon)": {},
+{
 	"Cron": {
 		"methods": [
 			"DaemonExecutor",
@@ -13,19 +12,16 @@
 	},
 	"Test": {
 		"methods": [
+			"DaemonMethod60",
+			"DaemonMethodAt0000",
+			"DaemonMethodEveryHour",
+			"DaemonMethodEveryMin",
+			"DaemonMethodEverySec",
 			"test_CalcNextLaunchTime",
-			"test_DateCalc"
+			"test_cron",
+			"test_DateCalc",
+			"writeLog"
 		]
 	},
-	"Utility": {
-		"methods": [
-			"CalcNextLaunchTime",
-			"GetLastDayNumber"
-		]
-	},
-	"trash": {
-		"groups": [
-			"(Daemon)"
-		]
-	}
+	"trash": {}
 }

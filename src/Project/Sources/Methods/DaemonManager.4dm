@@ -9,9 +9,9 @@
 * it has already been checked when added to the daemon list via Daemon.add() function.
 */
 
-var $daemons_c; $daemonsSnapShot_c; $indices_c : Collection
+var $daemons_c; $daemonNames_c; $daemonsSnapShot_c; $indices_c : Collection
 var $daemon_o : Object
-var $status_t; $executorMethod_t : Text
+var $status_t; $executorMethod_t; $daemonName_t : Text
 var $interval_l; $index_l : Integer
 var $quit_b : Boolean
 var $next_t; $now_t : Text
@@ -29,9 +29,9 @@ Repeat
 		: ($status_t="Stopped")
 			
 			// Kill all daemon processes
-			$daemons_c:=$cron_o._getDaemons()
-			For each ($daemon_o; $daemons_c)
-				KILL WORKER:C1390($daemon_o._name)
+			$daemonNames_c:=$cron_o.getDaemonNames()
+			For each ($daemonName_t; $daemonNames_c)
+				KILL WORKER:C1390($daemonName_t)
 			End for each 
 			
 			$quit_b:=True:C214  // to stop looping
