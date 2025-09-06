@@ -93,6 +93,17 @@
 			],
 			"Summary": ""
 		},
+		"getDaemonNames()": {
+			"Syntax": "**.getDaemonNames**() : Collection",
+			"Params": [
+				[
+					"",
+					"Collection",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
 		"stop()": {
 			"Syntax": "**.stop**() : cs.Cron.Cron",
 			"Params": [
@@ -121,5 +132,28 @@
 			"Summary": ""
 		}
 	},
-	"Daemon": {}
+	"Daemon": {
+		"get interval()": {
+			"Syntax": "**.get interval**() : Variant",
+			"Params": [
+				[
+					"",
+					"Variant",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"get name()": {
+			"Syntax": "**.get name**() : Text",
+			"Params": [
+				[
+					"",
+					"Text",
+					"<-"
+				]
+			],
+			"Summary": ""
+		}
+	}
 }

@@ -58,6 +58,14 @@ $parameter_o : Object)
 	End if 
 	This:C1470._executing:=False:C215
 	
+Function get name() : Text
+	
+	return This:C1470._name
+	
+Function get interval() : Variant
+	
+	return This:C1470._interval
+	
 Function _calcNextLaunchTime($interval_v : Variant) : Text
 	
 /**
@@ -71,14 +79,15 @@ Function _calcNextLaunchTime($interval_v : Variant) : Text
 * "on the nnth day at hh:mm" => the daemon is executed on the day at the time every month
 * where "nn" can be the day of the month (numeric) or "last" that indicates the last day of the month
 * "every nn {hours | hrs | minutes | mins | seconds | secs}" => the daemon is executed after given interval
+* "every xxday at hh:mm" => the daemon is executed on the specified day of week at the specified time, where the xxday is the day name.
 *
 * Note : when using "on the nn day at hh:mm" format, day numbers of the end of months are not taken into account.
 * So please use "last" keyword when "nn" should indicate 29th day and after.
 */
 	
 	var $valueType_l; $interval_l : Integer
-	var $timePattern_t; $dayPattern_t; $interval_t; $next_t : Text
-	var $day_t; $time_t : Text
+	var $timePattern_t; $dayPattern_t; $dayNamePattern_t; $interval_t; $next_t : Text
+	var $day_t; $time_t; $dayName_t : Text
 	var $current_d; $nextDate_d : Date
 	var $value_t; $unit_t : Text
 	var $currentYear_l; $currentMonth_l : Integer
@@ -100,6 +109,7 @@ Function _calcNextLaunchTime($interval_v : Variant) : Text
 			
 			$timePattern_t:="((?:[01][0-9]|2[0-3]):[0-5][0-9])"  // 00:00 - 23:59
 			$dayPattern_t:="((?:[1-9]|0[1-9]|[12][0-9]|3[01])|(?:last))"
+			$dayNamePattern_t:="(Sun(?:day)*|Mon(?:day)*|Tue(?:day)*|Wed(?:nesday)*|Thu(?:rsday)*|Fri(?:day)*|Sat(?:urday)*)"
 			
 			ARRAY LONGINT:C221($positons_al; 0)
 			ARRAY LONGINT:C221($lengths_al; 0)
@@ -214,6 +224,46 @@ Function _calcNextLaunchTime($interval_v : Variant) : Text
 					End case 
 					
 					$next_t:=String:C10(Current date:C33; ISO date:K1:8; Time:C179(Current time:C178+$interval_l))
+					
+				: (Match regex:C1019("^every "+$dayNamePattern_t+" at "+$timePattern_t+"$"; $interval_t; 1; $positons_al; $lengths_al))
+					
+					var $dayNumberToday_l; $dayNumberNext_l; $addDayNum_l : Integer
+					
+					// "every xxday at hh:mm" => the daemon is executed on the specified day of week at the specified time, where the xxday is the day name.
+					$dayName_t:=Substring:C12($interval_t; $positons_al{1}; $lengths_al{1})
+					$time_t:=Substring:C12($interval_t; $positons_al{2}; $lengths_al{2})
+					
+					$current_d:=Current date:C33
+					$dayNumberToday_l:=Day number:C114($current_d)
+					$dayNumberNext_l:=(["Sunday"; "Monday"; "Tuesday"; "Wednesday"; "Thursday"; "Friday"; "Saturday"].indexOf($dayName_t+"@"))+1
+					
+					Case of 
+						: ($dayNumberNext_l<$dayNumberToday_l)
+							
+							$addDayNum_l:=7-$dayNumberToday_l+$dayNumberNext_l
+							$nextDate_d:=Add to date:C393($current_d; 0; 0; $addDayNum_l)
+							
+						: ($dayNumberNext_l>$dayNumberToday_l)
+							
+							$addDayNum_l:=$dayNumberNext_l-$dayNumberToday_l
+							$nextDate_d:=Add to date:C393($current_d; 0; 0; $addDayNum_l)
+							
+						: ($dayNumberNext_l=$dayNumberToday_l)
+							
+							$nextDate_d:=$current_d
+							If ($time_t<=String:C10(Current time:C178; HH MM:K7:2))
+								
+								// Comparing string format since I do not want to take seconds into account
+								// If the given time has already passed for today
+								// set the next launch time for next week
+								$nextDate_d:=Add to date:C393($nextDate_d; 0; 0; 7)
+								
+							End if 
+							
+					End case 
+					
+					$time_h:=Time:C179($time_t)
+					$next_t:=String:C10($nextDate_d; ISO date:K1:8; $time_h)
 					
 			End case 
 			

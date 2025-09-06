@@ -28,6 +28,7 @@ End if
 // Set executing flag to true to avoid duplicate launch
 $cron_o._setDaemonExecutingFlag($daemonSnapShot_o._name; True:C214)
 
+// Call daemon function
 If ($daemon_o._parameter=Null:C1517)
 	$daemon_o._function()
 Else 
