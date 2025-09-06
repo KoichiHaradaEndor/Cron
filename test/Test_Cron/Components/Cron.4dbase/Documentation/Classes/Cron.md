@@ -17,7 +17,7 @@ This class is declared as shared singleton class.
 
 |Name|Type||Description||
 |-----|-----|-----|-----|-----|
-|return|Object|&#x2190;|`Cron` object||
+|return|cs.Cron.Cron|&#x2190;|`Cron` object||
 
 This function instantiate and returns the Cron object.
 

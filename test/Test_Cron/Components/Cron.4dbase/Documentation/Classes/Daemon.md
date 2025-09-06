@@ -13,7 +13,7 @@ The function will be executed in the named worker process repeatedly using the s
 
 ## Constructor
 
-**Daemon.new** () -> `Daemon`
+**Daemon.new** (name : Text; function : 4D.Function; interval : Variant; {parameter : Object}) -> `Daemon`
 
 |Name|Type||Description||
 |-----|-----|-----|-----|-----|
@@ -21,7 +21,7 @@ The function will be executed in the named worker process repeatedly using the s
 |function|4D.Function|&#x2192;|Function object that will be executed in daemon worker||
 |interval|Text or Integer|&#x2192;|Interval between the next daemon worker is called||
 |parameter|Object|&#x2192;|Parameter to be passed to the function|optional|
-|return|Object|&#x2190;|`Daemon` object||
+|return|cs.Cron.Daemon|&#x2190;|`Daemon` object||
 
 This function instantiate and returns the `Daemon` object.
 
