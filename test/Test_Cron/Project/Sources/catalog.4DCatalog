@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
 <base name="Test_Cron" uuid="D92312ECA1F0475A81F2513A45AECD01" collation_locale="ja">
 	<schema name="DEFAULT_SCHEMA"/>
@@ -20,5 +20,4 @@
 			<table_ref uuid="ED9673064AB6485F9A591104D8EDC267" name="Log"/>
 		</field_ref>
 	</index>
-	<base_extra __stringCompHash="icu:63.1.0, alternate=search" __keywordBuildingHash="mecab:0.996;sys.dic:102;"/>
 </base>
