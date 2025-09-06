@@ -1,24 +1,41 @@
 //%attributes = {}
+var $names_c; $deamonsToInstall_c : Collection
+var $deamonsToInstall_o : Object
+var $name_t : Text
 var $cron_o : cs:C1710.Cron.Cron
-var $daemon60sec_o; $daemon2min_o; $daemon1hour_o; $daemonAt0100_o; $daemonOn3At0100_o : cs:C1710.Cron.Daemon
 
-//ds.Log.all().drop()
+ds:C1482.Log.all().drop()
 
-// Creates Daemon objects
-$daemon60sec_o:=cs:C1710.Cron.Daemon.new("daemon60sec"; Formula:C1597(daemon_method); "every 60 sec"; {message: "every 60 sec"})
-$daemon2min_o:=cs:C1710.Cron.Daemon.new("daemon2min"; Formula:C1597(daemon_method); "every 2 min"; {message: "every 2 min"})
-$daemon1hour_o:=cs:C1710.Cron.Daemon.new("daemon1hour"; Formula:C1597(daemon_method); "every 1 hour"; {message: "every 1 hour"})
-$daemonAt0100_o:=cs:C1710.Cron.Daemon.new("daemonAt0100"; Formula:C1597(daemon_method); "at 01:00"; {message: "at 01:00"})
-$daemonOn3At0100_o:=cs:C1710.Cron.Daemon.new("daemonOn2At0100"; Formula:C1597(daemon_method); "on the 2nd day at 01:00"; {message: "on the 2nd day at 01:00"})
-
-// then add them under cron management
 $cron_o:=cs:C1710.Cron.Cron.me
-$cron_o.add($daemon60sec_o)
-$cron_o.add($daemon2min_o)
-$cron_o.add($daemon1hour_o)
-$cron_o.add($daemonAt0100_o)
-$cron_o.add($daemonOn3At0100_o)
-$cron_o.setInterval(10)
+
+// Remove currently installed daemons
+$names_c:=$cron_o.getDaemonNames()
+For each ($name_t; $names_c)
+	$cron_o.delete($name_t)
+End for each 
+
+// Creates Daemon instance object, then
+// register it object under the cron's management
+$deamonsToInstall_c:=[\
+{name: "DaemondSec"; formula: Formula:C1597(daemon_method); interval: 3600}; \
+{name: "DaemondOnDayAtTime"; formula: Formula:C1597(daemon_method); interval: "on the 6th day at 23:20"}; \
+{name: "DaemondAtTime"; formula: Formula:C1597(daemon_method); interval: "at 19:15"}; \
+{name: "DaemondEveryHour"; formula: Formula:C1597(daemon_method); interval: "every 2 hours"}; \
+{name: "DaemondEveryMin"; formula: Formula:C1597(daemon_method); interval: "every 60 minutes"}; \
+{name: "DaemondEverySec"; formula: Formula:C1597(daemon_method); interval: "every 1800 seconds"}; \
+{name: "DaemondEveryWeekAtTime"; formula: Formula:C1597(daemon_method); interval: "every Saturday at 23:20"}\
+]
+
+For each ($deamonsToInstall_o; $deamonsToInstall_c)
+	$daemon_o:=cs:C1710.Cron.Daemon.new($deamonsToInstall_o.name; $deamonsToInstall_o.formula; $deamonsToInstall_o.interval)
+	$cron_o.add($daemon_o)
+End for each 
+
+// Set cron management interval to 5 secs.
+$cron_o.setInterval(5)
+
+// then start daemon process(es)
 $cron_o.start()
 
-CALL WORKER:C1389("Test_showList"; Formula:C1597(Test_showList))
+// show List form
+CALL WORKER:C1389("P:Test_showList"; Formula:C1597(Test_showList))

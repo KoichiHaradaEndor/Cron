@@ -66,6 +66,10 @@ Function get interval() : Variant
 	
 	return This:C1470._interval
 	
+Function get next() : Text
+	
+	return This:C1470._next
+	
 Function _calcNextLaunchTime($interval_v : Variant) : Text
 	
 /**

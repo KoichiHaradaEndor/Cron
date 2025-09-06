@@ -1,9 +1,17 @@
+var $event_o : Object
+var $daemons_c : Collection
+
+$event_o:=FORM Event:C1606
+
 Case of 
-	: (Form event code:C388=On Load:K2:1)
+	: ($event_o.code=On Selection Change:K2:29)
 		
-		Form:C1466.Log:=ds:C1482.Log.all().orderBy("dateTime asc")
+		If (Form:C1466.LogSelectedItem=Null:C1517)
+			return 
+		End if 
 		
-	: (Form event code:C388=On Unload:K2:2)
-		
+		$daemons_c:=cs:C1710.Cron.Cron.me._getDaemons()
+		$daemons_c:=$daemons_c.query("_interval === :1 OR _interval === :2 order by _next desc"; $interval_t; Num:C11($interval_t))
+		Form:C1466.nextSchedule:=($daemons_c.length=0) ? "" : $daemons_c[0].next
 		
 End case 
