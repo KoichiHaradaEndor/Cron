@@ -133,6 +133,17 @@
 		}
 	},
 	"Daemon": {
+		"get next()": {
+			"Syntax": "**.get next**() : Text",
+			"Params": [
+				[
+					"",
+					"Text",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
 		"get interval()": {
 			"Syntax": "**.get interval**() : Variant",
 			"Params": [
