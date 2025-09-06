@@ -9,8 +9,6 @@ The `Daemon` is used to store daemon prosess information, especially
 * interval that defines when the daemon should be executed, 
 * and parameter object which is passed to the function when it is executed each time.
 
-A daemon executed in a dedicated worker process repeatedly.
-
 The function will be executed in the named worker process repeatedly using the specified interval. So the function need not contain loop structure.
 
 ## Constructor
@@ -41,13 +39,17 @@ It can take the following formats:
 
 |Format|Type|Description|
 |-----|-----|-----|
-|Numeric value|Integer|Interval expressed in second|
-|"at hh:mm"|Text|The daemon is executed at hh:mm everyday (24-hour notation, 00:00 - 23:59)|
-|"on the nnth day at hh:mm"|Text|The daemon is executed on the day at the time every month, where "nn" can be the day of the month (numeric) or "last" that indicates the last day of the month|
-|"every nn {hour(s) / hr(s) / minute(s) / min(s) / second(s) / sec(s)}"|Text|The daemon is executed after given interval|
+|Numeric value|Integer|Interval expressed in second<br>ex.: `60` (indicates every 1 minute)|
+|"at hh:mm"|Text|The daemon is executed at hh:mm everyday (24-hour notation, 00:00 - 23:59)<br>ex.: `at 01:00`|
+|"on the nnth day at hh:mm"|Text|The daemon is executed on the day at the time every month, where "nn" can be the day of the month (numeric) or "last" that indicates the last day of the month<br>ex.: `on the 1st day at 01:00` or `on the last day at 01:00`|
+|"every nn {hour(s) / hr(s) / minute(s) / min(s) / second(s) / sec(s)}"|Text|The daemon is executed after given interval<br>ex.: `every 10 seconds`, `every 1 minute` or `every 1 hour`|
 
 Note that when using "on the nnth day at hh:mm" format, since last day numbers of months vary, use "last" keyword when "nn" should indicate 29th day and after.
 
 The optional `parameter` parameter will be passed to the function when it is called each time.
+
+**Note**:
+
+You can access to the `Daemon` object itself inside the function by using `This` keyword when it executes. `This.name` will return the daemon name and `This.interval` will return interval value (both read-only).
 
 ---

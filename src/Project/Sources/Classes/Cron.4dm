@@ -20,6 +20,7 @@ shared Function add($daemon_o : cs:C1710.Daemon) : cs:C1710.Cron
 * If the daemon.name already registered, it will be overwritten.
 */
 	
+	var $interval_t; $timePattern_t; $dayPattern_t; $dayNamePattern_t : Text
 	var $copiedDaemon_o : Object
 	var $daemons_c : Collection
 	var $type_l; $index_l : Integer
@@ -27,13 +28,21 @@ shared Function add($daemon_o : cs:C1710.Daemon) : cs:C1710.Cron
 	$type_l:=Value type:C1509($daemon_o._interval)
 	
 	// set next launch time
+	$timePattern_t:="((?:[01][0-9]|2[0-3]):[0-5][0-9])"  // 00:00 - 23:59
+	$dayPattern_t:="((?:[1-9]|0[1-9]|[12][0-9]|3[01])|(?:last))"
+	$dayNamePattern_t:="(Sun(?:day)*|Mon(?:day)*|Tue(?:day)*|Wed(?:nesday)*|Thu(?:rsday)*|Fri(?:day)*|Sat(?:urday)*)"
+	
 	Case of 
 		: ($type_l=Is text:K8:3)
-			If ($daemon_o._interval="every @")
-				$daemon_o._updateNextLaunchTime("now")
-			Else 
-				$daemon_o._updateNextLaunchTime()
-			End if 
+			$interval_t:=$daemon_o._interval
+			Case of 
+				: (Match regex:C1019("^every (\\d+) (hours|hrs|hour|hr|minutes|mins|minute|min|seconds|secs|second|sec)$"; $interval_t; 1))
+					$daemon_o._updateNextLaunchTime("now")
+				: (Match regex:C1019("^every "+$dayNamePattern_t+" at "+$timePattern_t+"$"; $interval_t; 1))
+					$daemon_o._updateNextLaunchTime()
+				Else 
+					$daemon_o._updateNextLaunchTime()
+			End case 
 		: ($type_l=Is real:K8:4) || ($type_l=Is longint:K8:6)
 			$daemon_o._updateNextLaunchTime("now")
 	End case 
@@ -102,6 +111,14 @@ shared Function setInterval($interval_l : Integer) : cs:C1710.Cron
 	
 	This:C1470._interval:=Abs:C99($interval_l)
 	return This:C1470
+	
+shared Function getDaemonNames() : Collection
+	
+	var $daemons_c; $names_c : Collection
+	
+	$daemons_c:=This:C1470._getDaemons()
+	$names_c:=$daemons_c.extract("_name")
+	return $names_c
 	
 shared Function _getStatus() : Text
 	
