@@ -2,7 +2,7 @@
 var $interval_t; $orderBy_t : Text
 var $daemons_c : Collection
 
-$orderBy_t:="runAt asc, interval asc"
+$orderBy_t:="order asc, interval asc"
 $interval_t:=Form:C1466.intervalList.currentValue
 Case of 
 	: (Form:C1466.intervalList.currentValue=Null:C1517)
