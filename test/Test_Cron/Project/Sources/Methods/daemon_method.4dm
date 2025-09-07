@@ -1,6 +1,7 @@
 //%attributes = {"preemptive":"capable"}
 #DECLARE($parameter_o : Object)
 
+var $winRef_l : Integer
 var $logEntity_o : cs:C1710.LogEntity
 
 $logEntity_o:=ds:C1482.Log.new()
@@ -10,6 +11,8 @@ $logEntity_o.scheduledAt:=This:C1470.next
 $logEntity_o.save()
 
 If (cs:C1710.IV.me.winRef#Null:C1517)
-	CALL FORM:C1391(cs:C1710.IV.me.winRef; "Test_query")
-	CALL FORM:C1391(cs:C1710.IV.me.winRef; "Test_buildIntervalList")
+	$winRef_l:=cs:C1710.IV.me.winRef
+	CALL FORM:C1391($winRef_l; "Test_query")
+	CALL FORM:C1391($winRef_l; "Test_buildIntervalList")
+	CALL FORM:C1391($winRef_l; "Test_updateDaemonList")
 End if 

@@ -9,7 +9,7 @@
 	"windowMinHeight": 0,
 	"windowMaxWidth": 32767,
 	"windowMaxHeight": 32767,
-	"rightMargin": 20,
+	"rightMargin": 0,
 	"bottomMargin": 20,
 	"events": [
 		"onLoad",
@@ -19,24 +19,64 @@
 	"destination": "detailScreen",
 	"pages": [
 		{
-			"objects": {}
+			"objects": {
+				"Tab Control": {
+					"type": "tab",
+					"text": "Tab control",
+					"top": 0,
+					"left": 0,
+					"width": 1000,
+					"height": 620,
+					"right": 1000,
+					"bottom": 620,
+					"class": "label-lg",
+					"labels": [
+						"History",
+						"Daemons"
+					],
+					"action": "gotoPage"
+				},
+				"Button": {
+					"type": "button",
+					"text": "Stop",
+					"top": 640,
+					"left": 790,
+					"width": 190,
+					"height": 40,
+					"events": [
+						"onClick"
+					],
+					"method": "ObjectMethods/Button.4dm",
+					"class": "label-lg"
+				},
+				"Button1": {
+					"type": "button",
+					"text": "Start",
+					"top": 640,
+					"left": 580,
+					"width": 190,
+					"height": 40,
+					"events": [
+						"onClick"
+					],
+					"method": "ObjectMethods/Button1.4dm",
+					"class": "label-lg"
+				}
+			}
 		},
 		{
 			"objects": {
 				"List Box": {
 					"type": "listbox",
 					"left": 20,
-					"top": 90,
-					"width": 920,
+					"top": 130,
+					"width": 960,
 					"height": 470,
-					"events": [
-						"onSelectionChange"
-					],
+					"events": [],
 					"listboxType": "collection",
 					"dataSource": "Form:C1466.Log",
-					"fontSize": 24,
 					"currentItemSource": "Form:C1466.LogSelectedItem",
-					"method": "ObjectMethods/List Box.4dm",
+					"class": "label-lg",
 					"columns": [
 						{
 							"header": {
@@ -59,8 +99,9 @@
 							"footer": {
 								"name": "Footer2"
 							},
-							"width": 300,
-							"dataSource": "This:C1470.runAt"
+							"width": 320,
+							"dataSource": "This:C1470.runAt",
+							"textAlign": "left"
 						},
 						{
 							"header": {
@@ -71,7 +112,7 @@
 							"footer": {
 								"name": "Footer3"
 							},
-							"width": 300,
+							"width": 320,
 							"dataSource": "This:C1470.scheduledAt"
 						}
 					]
@@ -79,51 +120,94 @@
 				"message-dl": {
 					"type": "dropdown",
 					"left": 20,
-					"top": 20,
+					"top": 60,
 					"width": 300,
 					"height": 50,
 					"events": [
 						"onDataChange"
 					],
-					"fontSize": 24,
 					"dataSource": "Form:C1466.intervalList",
-					"method": "ObjectMethods/message-dl.4dm"
+					"method": "ObjectMethods/message-dl.4dm",
+					"class": "label-lg"
 				},
 				"Text": {
 					"type": "text",
 					"text": "Next schedule at:",
-					"top": 30,
-					"left": 340,
+					"top": 70,
+					"left": 390,
 					"width": 190,
 					"height": 29,
-					"fontSize": 24
+					"class": "label-lg"
 				},
 				"Input": {
 					"type": "input",
-					"left": 530,
-					"top": 30,
+					"left": 580,
+					"top": 70,
 					"width": 410,
 					"height": 17,
-					"fontSize": 24,
-					"dataSource": "Form:C1466.nextSchedule"
-				},
-				"Button": {
-					"type": "button",
-					"text": "Stop",
-					"top": 580,
-					"left": 750,
-					"width": 190,
-					"height": 40,
+					"dataSource": "Form:C1466.nextSchedule",
+					"class": "label-lg"
+				}
+			}
+		},
+		{
+			"objects": {
+				"List Box1": {
+					"type": "listbox",
+					"left": 20,
+					"top": 130,
+					"width": 960,
+					"height": 470,
 					"events": [
-						"onClick"
+						"onSelectionChange"
 					],
-					"method": "ObjectMethods/Button.4dm",
-					"fontSize": 24
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.Daemons",
+					"currentItemSource": "Form:C1466.LogSelectedItem",
+					"class": "label-lg",
+					"columns": [
+						{
+							"header": {
+								"text": "Name",
+								"name": "Header4"
+							},
+							"name": "Column4",
+							"footer": {
+								"name": "Footer4"
+							},
+							"width": 300,
+							"dataSource": "This:C1470.name"
+						},
+						{
+							"header": {
+								"name": "Header5",
+								"text": "Interval"
+							},
+							"name": "Column5",
+							"footer": {
+								"name": "Footer5"
+							},
+							"width": 320,
+							"dataSource": "This:C1470.interval"
+						},
+						{
+							"header": {
+								"name": "Header6",
+								"text": "Next"
+							},
+							"name": "Column6",
+							"footer": {
+								"name": "Footer6"
+							},
+							"width": 320,
+							"dataSource": "This:C1470.next"
+						}
+					]
 				}
 			}
 		}
 	],
-	"geometryStamp": 217,
+	"geometryStamp": 307,
 	"editor": {
 		"activeView": "View 1",
 		"defaultView": "View 1",
