@@ -6,13 +6,7 @@
 
 ## Description
 
-By Installing this component into your 4D project, one method is added to your 4D project, that can be used to import Cron component's class store.
-
-[Import Cron](src/Documentation/Methods/ImportCron.md)
-
-After you import the class store, you can instantiate Cron and Daemon classes.
-
-Or the component publishes `cs.Cron` class store, so you can write:
+The component publishes `cs.Cron` class store, so you can write:
 
 ```4d
 var $cron_o : cs.Cron.Cron
@@ -25,6 +19,14 @@ $daemon_o:=cs.Cron.Daemon.new("daemonNamed"; Formula(method); "every 1 hour")
 [Cron Class](src/Documentation/Classes/Cron.md)
 
 [Daemon Class](src/Documentation/Classes/Daemon.md)
+
+**Deprecated** :
+
+By Installing this component into your 4D project, one method is added to your 4D project, that can be used to import Cron component's class store.
+
+[Import Cron](src/Documentation/Methods/Import Cron.md)
+
+After you import the class store, you can instantiate Cron and Daemon classes.
 
 ## Requirement
 
