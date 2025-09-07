@@ -8,6 +8,7 @@ Case of
 		Form:C1466.nextSchedule:=""
 		Test_buildIntervalList()
 		Test_query()
+		Form:C1466.Daemons:=cs:C1710.Cron.Cron.me._getDaemons()
 		
 	: ($event_o.code=On Unload:K2:2)
 		cs:C1710.IV.me.removeWinRef()

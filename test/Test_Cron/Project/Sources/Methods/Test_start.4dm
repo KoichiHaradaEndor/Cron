@@ -3,6 +3,7 @@ var $names_c; $deamonsToInstall_c : Collection
 var $deamonsToInstall_o : Object
 var $name_t : Text
 var $cron_o : cs:C1710.Cron.Cron
+var $daemon_o : cs:C1710.Cron.Daemon
 
 ds:C1482.Log.all().drop()
 
@@ -14,16 +15,16 @@ For each ($name_t; $names_c)
 	$cron_o.delete($name_t)
 End for each 
 
-// Creates Daemon instance object, then
-// register it object under the cron's management
+// Creates Daemon instance objects, then
+// register them under cron's management
 $deamonsToInstall_c:=[\
 {name: "DaemondSec"; formula: Formula:C1597(daemon_method); interval: 3600}; \
-{name: "DaemondOnDayAtTime"; formula: Formula:C1597(daemon_method); interval: "on the 6th day at 23:20"}; \
-{name: "DaemondAtTime"; formula: Formula:C1597(daemon_method); interval: "at 19:15"}; \
-{name: "DaemondEveryHour"; formula: Formula:C1597(daemon_method); interval: "every 2 hours"}; \
-{name: "DaemondEveryMin"; formula: Formula:C1597(daemon_method); interval: "every 60 minutes"}; \
 {name: "DaemondEverySec"; formula: Formula:C1597(daemon_method); interval: "every 1800 seconds"}; \
-{name: "DaemondEveryWeekAtTime"; formula: Formula:C1597(daemon_method); interval: "every Saturday at 23:20"}\
+{name: "DaemondEveryMin"; formula: Formula:C1597(daemon_method); interval: "every 60 minutes"}; \
+{name: "DaemondEveryHour"; formula: Formula:C1597(daemon_method); interval: "every 2 hours"}; \
+{name: "DaemondAtTime"; formula: Formula:C1597(daemon_method); interval: "at 09:00"}; \
+{name: "DaemondOnDayAtTime"; formula: Formula:C1597(daemon_method); interval: "on the 7th day at 09:00"}; \
+{name: "DaemondEveryWeekAtTime"; formula: Formula:C1597(daemon_method); interval: "every Sunday at 09:00"}\
 ]
 
 For each ($deamonsToInstall_o; $deamonsToInstall_c)
@@ -38,4 +39,4 @@ $cron_o.setInterval(5)
 $cron_o.start()
 
 // show List form
-CALL WORKER:C1389("P:Test_showList"; Formula:C1597(Test_showList))
+Test_showList

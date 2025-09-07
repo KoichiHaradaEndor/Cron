@@ -1,6 +1,18 @@
 ﻿<!-- () -> Object -->
 # Import Cron
 
+**Note** :
+
+You don't need to use this method to import Cron classes. Instead use following code:
+
+```4d
+var $cron_o : cs.Cron.Cron
+var $daemon_o : cs.Cron.Daemon
+
+$cron_o:=cs.Cron.Cron.me
+$daemon_o:=cs.Cron.Daemon.new(...)
+```
+
 ## Description
 
 This method is used to import class store of the Cron component.
