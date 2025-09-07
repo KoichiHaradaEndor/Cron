@@ -125,6 +125,7 @@ Function _calcNextLaunchTime($interval_v : Variant) : Text
 					// use for the first launch
 					// **DO NOT USE THE "now" KEYWORD TO INDICATE INTERVAL IN  DAEMON.NEW().**
 					// **IF YOU DO SO, THE CRON METHOD WILL BE CALLED CONTINUEOUSLY WITHOUT INTERVAL.**
+					
 					$next_t:=String:C10(Current date:C33; ISO date:K1:8; Current time:C178)
 					
 				: (Match regex:C1019("^on (?:the |)"+$dayPattern_t+"(?:st|nd|rd|th|) day at "+$timePattern_t+"$"; $interval_t; 1; $positons_al; $lengths_al))
@@ -185,8 +186,7 @@ Function _calcNextLaunchTime($interval_v : Variant) : Text
 							
 					End case 
 					
-					$time_h:=Time:C179($time_t)
-					$next_t:=String:C10($nextDate_d; ISO date:K1:8; $time_h)
+					$next_t:=String:C10($nextDate_d; ISO date:K1:8; Time:C179($time_t))
 					
 				: (Match regex:C1019("^at "+$timePattern_t+"$"; $interval_t; 1; $positons_al; $lengths_al))
 					
@@ -210,7 +210,6 @@ Function _calcNextLaunchTime($interval_v : Variant) : Text
 				: (Match regex:C1019("^every (\\d+) (hours|hrs|hour|hr|minutes|mins|minute|min|seconds|secs|second|sec)$"; $interval_t; 1; $positons_al; $lengths_al))
 					
 					// "every nn {hours | minutes | seconds}" => the daemon is executed after given interval
-					
 					$value_t:=Substring:C12($interval_t; $positons_al{1}; $lengths_al{1})
 					$unit_t:=Substring:C12($interval_t; $positons_al{2}; $lengths_al{2})
 					
@@ -219,15 +218,24 @@ Function _calcNextLaunchTime($interval_v : Variant) : Text
 						: ($unit_t="hours") | ($unit_t="hrs") | ($unit_t="hour") | ($unit_t="hr")
 							$interval_l:=Num:C11($value_t)*60*60
 							
+							// to remove second portion
+							$time_t:=String:C10(Time:C179(Current time:C178+$interval_l); HH MM:K7:2)
+							$time_h:=Time:C179($time_t)
+							
 						: ($unit_t="minutes") | ($unit_t="mins") | ($unit_t="minute") | ($unit_t="min")
 							$interval_l:=Num:C11($value_t)*60
 							
+							// to remove second portion
+							$time_t:=String:C10(Time:C179(Current time:C178+$interval_l); HH MM:K7:2)
+							$time_h:=Time:C179($time_t)
+							
 						: ($unit_t="seconds") | ($unit_t="secs") | ($unit_t="second") | ($unit_t="sec")
 							$interval_l:=Num:C11($value_t)
+							$time_h:=Time:C179(Current time:C178+$interval_l)
 							
 					End case 
 					
-					$next_t:=String:C10(Current date:C33; ISO date:K1:8; Time:C179(Current time:C178+$interval_l))
+					$next_t:=String:C10(Current date:C33; ISO date:K1:8; $time_h)
 					
 				: (Match regex:C1019("^every "+$dayNamePattern_t+" at "+$timePattern_t+"$"; $interval_t; 1; $positons_al; $lengths_al))
 					
@@ -266,8 +274,7 @@ Function _calcNextLaunchTime($interval_v : Variant) : Text
 							
 					End case 
 					
-					$time_h:=Time:C179($time_t)
-					$next_t:=String:C10($nextDate_d; ISO date:K1:8; $time_h)
+					$next_t:=String:C10($nextDate_d; ISO date:K1:8; Time:C179($time_t))
 					
 			End case 
 			
