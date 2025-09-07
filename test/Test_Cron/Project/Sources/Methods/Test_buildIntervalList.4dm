@@ -6,7 +6,7 @@ var $logSel_o : cs:C1710.LogSelection
 
 $currentValue_t:=Form:C1466.intervalList.currentValue
 
-$logSel_o:=ds:C1482.Log.all()
+$logSel_o:=ds:C1482.Log.query("interval != :1"; "==@")
 $intervals_c:=$logSel_o.distinct("interval")
 $intervals_c.insert(0; "all")
 $index_l:=$intervals_c.indexOf($currentValue_t)

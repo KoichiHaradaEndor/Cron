@@ -101,7 +101,7 @@
 							},
 							"width": 320,
 							"dataSource": "This:C1470.runAt",
-							"textAlign": "left"
+							"textAlign": "automatic"
 						},
 						{
 							"header": {
@@ -188,7 +188,8 @@
 								"name": "Footer5"
 							},
 							"width": 320,
-							"dataSource": "This:C1470.interval"
+							"dataSource": "This:C1470.interval",
+							"textAlign": "left"
 						},
 						{
 							"header": {

@@ -1,6 +1,7 @@
 //%attributes = {}
 var $interval_t; $orderBy_t : Text
 var $daemons_c : Collection
+var $logSelInterval_o; $logSelStartEnd_o : cs:C1710.LogSelection
 
 $orderBy_t:="order asc, interval asc"
 $interval_t:=Form:C1466.intervalList.currentValue
@@ -10,7 +11,9 @@ Case of
 	: ($interval_t="") || ($interval_t="all")
 		Form:C1466.Log:=ds:C1482.Log.all().orderBy($orderBy_t)
 	Else 
-		Form:C1466.Log:=ds:C1482.Log.query("interval === :1 order by "+$orderBy_t; $interval_t)
+		$logSelInterval_o:=ds:C1482.Log.query("interval === :1"; $interval_t)
+		$logSelStartEnd_o:=ds:C1482.Log.query("interval = :1"; "==@")
+		Form:C1466.Log:=$logSelInterval_o.or($logSelStartEnd_o).orderBy($orderBy_t)
 End case 
 
 $daemons_c:=cs:C1710.Cron.Cron.me._getDaemons()

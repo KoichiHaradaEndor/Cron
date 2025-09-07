@@ -23,9 +23,9 @@ $deamonsToInstall_c:=[\
 {name: "DaemondEverySec"; formula: Formula:C1597(daemon_method); interval: "every 1800 seconds"}; \
 {name: "DaemondEveryMin"; formula: Formula:C1597(daemon_method); interval: "every 60 minutes"}; \
 {name: "DaemondEveryHour"; formula: Formula:C1597(daemon_method); interval: "every 2 hours"}; \
-{name: "DaemondAtTime"; formula: Formula:C1597(daemon_method); interval: "at 12:00"}; \
-{name: "DaemondOnDayAtTime"; formula: Formula:C1597(daemon_method); interval: "on the 7th day at 12:00"}; \
-{name: "DaemondEveryWeekAtTime"; formula: Formula:C1597(daemon_method); interval: "every Sunday at 12:00"}\
+{name: "DaemondAtTime"; formula: Formula:C1597(daemon_method); interval: "at 14:00"}; \
+{name: "DaemondOnDayAtTime"; formula: Formula:C1597(daemon_method); interval: "on the 7th day at 14:00"}; \
+{name: "DaemondEveryWeekAtTime"; formula: Formula:C1597(daemon_method); interval: "every Sunday at 14:00"}\
 ]
 
 For each ($deamonsToInstall_o; $deamonsToInstall_c)
