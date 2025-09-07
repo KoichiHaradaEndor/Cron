@@ -7,6 +7,7 @@
 		<field name="runAt" uuid="07AED1A932D74F558949EDFA78B6D0E3" type="10" limiting_length="255" never_null="true" id="2"/>
 		<field name="interval" uuid="DE87B8E6BC67416DA1CF56431F424159" type="10" limiting_length="255" never_null="true" id="3"/>
 		<field name="scheduledAt" uuid="EF1952B0A54044ECBD75D14C2714D114" type="10" limiting_length="255" never_null="true" id="4"/>
+		<field name="order" uuid="C280AA13DDE44039A72821DA0790B3B0" type="4" autosequence="true" never_null="true" id="5"/>
 		<primary_key field_name="id" field_uuid="7965AB2131B74F008751F0A13B500058"/>
 		<table_extra>
 			<editor_table_info displayable_fields_count="7">
@@ -17,6 +18,11 @@
 	</table>
 	<index kind="regular" uuid="25C15DFB06E246E7968D8715BE94EEC9" type="1">
 		<field_ref uuid="DE87B8E6BC67416DA1CF56431F424159" name="interval">
+			<table_ref uuid="D9C0F1A241BC4942A32D9480B7685DD4" name="Log"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="46A747555E5348E0B8ADFC461C7AF338" type="1">
+		<field_ref uuid="C280AA13DDE44039A72821DA0790B3B0" name="order">
 			<table_ref uuid="D9C0F1A241BC4942A32D9480B7685DD4" name="Log"/>
 		</field_ref>
 	</index>
