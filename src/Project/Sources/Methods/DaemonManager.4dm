@@ -59,12 +59,14 @@ Repeat
 				
 				$run_b:=False:C215
 				Case of 
-					: ($next_t#"")
+					: ($next_t="")
 						// $next_t can be empty when the daemon interval is NOT supported format
 						
-					: ($index_l=-1)
+					: ($index_l=-1) && ($next_t<=$now_t)
 						// The daemon process does not exist at this point.
 						// This is the first time call or process has been aborted (crashed).
+						// If the process was crashed, executing flag may still be true.
+						$cron_o._setDaemonExecutingFlag($daemonName_t; False:C215)
 						$run_b:=True:C214
 						
 					: ($executing_b=True:C214)

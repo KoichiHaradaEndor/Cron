@@ -5,10 +5,6 @@ var $daemon_o : cs:C1710.Daemon
 
 $daemon_o:=cs:C1710.Daemon.new("test"; Formula:C1597(1+1); 3)
 
-$interval_t:="every Saturday at 15:00"
-$next_t:=$daemon_o._calcNextLaunchTime($interval_t)
-ALERT:C41($next_t)
-
 $interval_l:=300  // 5 mins later
 $next_t:=$daemon_o._calcNextLaunchTime($interval_l)
 ALERT:C41($next_t)
@@ -50,5 +46,13 @@ $next_t:=$daemon_o._calcNextLaunchTime($interval_t)
 ALERT:C41($interval_t+"\r"+$next_t)
 
 $interval_t:="on the last day at 08:57"
+$next_t:=$daemon_o._calcNextLaunchTime($interval_t)
+ALERT:C41($interval_t+"\r"+$next_t)
+
+$interval_t:="every Sunday at 08:57"
+$next_t:=$daemon_o._calcNextLaunchTime($interval_t)
+ALERT:C41($interval_t+"\r"+$next_t)
+
+$interval_t:="every Sun at 16:57"
 $next_t:=$daemon_o._calcNextLaunchTime($interval_t)
 ALERT:C41($interval_t+"\r"+$next_t)
