@@ -25,9 +25,9 @@
 					"text": "Tab control",
 					"top": 0,
 					"left": 0,
-					"width": 1000,
+					"width": 1030,
 					"height": 620,
-					"right": 1000,
+					"right": 1030,
 					"bottom": 620,
 					"class": "label-lg",
 					"labels": [
@@ -40,7 +40,7 @@
 					"type": "button",
 					"text": "Stop",
 					"top": 640,
-					"left": 790,
+					"left": 820,
 					"width": 190,
 					"height": 40,
 					"events": [
@@ -53,7 +53,7 @@
 					"type": "button",
 					"text": "Start",
 					"top": 640,
-					"left": 580,
+					"left": 610,
 					"width": 190,
 					"height": 40,
 					"events": [
@@ -70,13 +70,15 @@
 					"type": "listbox",
 					"left": 20,
 					"top": 130,
-					"width": 960,
+					"width": 990,
 					"height": 470,
 					"events": [],
 					"listboxType": "collection",
 					"dataSource": "Form:C1466.Log",
 					"currentItemSource": "Form:C1466.LogSelectedItem",
 					"class": "label-lg",
+					"rowFillSource": "LB_bgColor",
+					"rowStrokeSource": "LB_fgColor",
 					"columns": [
 						{
 							"header": {
@@ -87,21 +89,9 @@
 							"footer": {
 								"name": "Footer1"
 							},
-							"width": 300,
-							"dataSource": "This:C1470.interval"
-						},
-						{
-							"header": {
-								"name": "Header2",
-								"text": "Run at"
-							},
-							"name": "Column2",
-							"footer": {
-								"name": "Footer2"
-							},
-							"width": 320,
-							"dataSource": "This:C1470.runAt",
-							"textAlign": "automatic"
+							"width": 280,
+							"dataSource": "This:C1470.interval",
+							"enterable": false
 						},
 						{
 							"header": {
@@ -112,8 +102,37 @@
 							"footer": {
 								"name": "Footer3"
 							},
-							"width": 320,
-							"dataSource": "This:C1470.scheduledAt"
+							"width": 280,
+							"dataSource": "This:C1470.scheduledAt",
+							"enterable": false
+						},
+						{
+							"header": {
+								"name": "Header2",
+								"text": "Run at"
+							},
+							"name": "Column2",
+							"footer": {
+								"name": "Footer2"
+							},
+							"width": 280,
+							"dataSource": "This:C1470.runAt",
+							"textAlign": "automatic",
+							"enterable": false
+						},
+						{
+							"header": {
+								"name": "Header7",
+								"text": "Gap"
+							},
+							"name": "Column7",
+							"footer": {
+								"name": "Footer7"
+							},
+							"width": 130,
+							"dataSource": "This:C1470.gap",
+							"dataSourceTypeHint": "time",
+							"textAlign": "center"
 						}
 					]
 				},
@@ -134,16 +153,16 @@
 					"type": "text",
 					"text": "Next schedule at:",
 					"top": 70,
-					"left": 390,
+					"left": 520,
 					"width": 190,
 					"height": 29,
 					"class": "label-lg"
 				},
 				"Input": {
 					"type": "input",
-					"left": 580,
+					"left": 710,
 					"top": 70,
-					"width": 410,
+					"width": 300,
 					"height": 17,
 					"dataSource": "Form:C1466.nextSchedule",
 					"class": "label-lg"
@@ -156,7 +175,7 @@
 					"type": "listbox",
 					"left": 20,
 					"top": 130,
-					"width": 960,
+					"width": 990,
 					"height": 470,
 					"events": [
 						"onSelectionChange"
@@ -175,7 +194,7 @@
 							"footer": {
 								"name": "Footer4"
 							},
-							"width": 300,
+							"width": 310,
 							"dataSource": "This:C1470.name"
 						},
 						{
@@ -187,7 +206,7 @@
 							"footer": {
 								"name": "Footer5"
 							},
-							"width": 320,
+							"width": 330,
 							"dataSource": "This:C1470.interval",
 							"textAlign": "left"
 						},
@@ -200,7 +219,7 @@
 							"footer": {
 								"name": "Footer6"
 							},
-							"width": 320,
+							"width": 330,
 							"dataSource": "This:C1470.next"
 						}
 					]
@@ -208,7 +227,7 @@
 			}
 		}
 	],
-	"geometryStamp": 307,
+	"geometryStamp": 346,
 	"editor": {
 		"activeView": "View 1",
 		"defaultView": "View 1",

@@ -9,11 +9,11 @@
 * it has already been checked when added to the daemon list via Daemon.add() function.
 */
 
-var $daemons_c; $daemonNames_c; $daemonsSnapShot_c; $indices_c : Collection
-var $daemon_o : Object
+var $daemons_c; $daemonNames_c; $daemonsSnapShot_c; $indices_c; $processes_c : Collection
+var $daemon_o; $processes_o : Object
 var $status_t; $executorMethod_t; $daemonName_t : Text
 var $interval_l; $index_l : Integer
-var $quit_b : Boolean
+var $quit_b; $run_b; $executing_b : Boolean
 var $next_t; $now_t : Text
 var $cron_o : cs:C1710.Cron
 
@@ -39,20 +39,44 @@ Repeat
 			
 		Else 
 			
+			// Get list of currently running process list
+			$processes_o:=Process activity:C1495(Processes only:K5:35)
+			$processes_c:=$processes_o.processes
+			
 			// Make a snapshot of the daemon list (produced with Daemon.add() function) at this point
 			$daemons_c:=$cron_o._getDaemons()
 			$daemonsSnapShot_c:=$daemons_c.copy()
 			
-			// and picks only daemons whose executing property equals to False
-			$daemonsSnapShot_c:=$daemonsSnapShot_c.query("_executing = :1"; False:C215)
 			For each ($daemonSnapShot_o; $daemonsSnapShot_c)
 				
+				$daemonName_t:=$daemonSnapShot_o._name
+				$executing_b:=$daemonSnapShot_o._executing
 				$next_t:=$daemonSnapShot_o._next
 				$now_t:=String:C10(Current date:C33; ISO date:K1:8; Current time:C178)
-				If ($next_t#"") & ($next_t<=$now_t)
-					// $next_t can be empty when the daemon interval is NOT supported format
-					
-					CALL WORKER:C1389($daemonSnapShot_o._name; $executorMethod_t; $daemonSnapShot_o._name)
+				
+				// check if a daemon worker process has already been launched and exists
+				$index_l:=$processes_c.findIndex(Formula:C1597($1.value.name=$2); $daemonName_t)
+				
+				$run_b:=False:C215
+				Case of 
+					: ($next_t#"")
+						// $next_t can be empty when the daemon interval is NOT supported format
+						
+					: ($index_l=-1)
+						// The daemon process does not exist at this point.
+						// This is the first time call or process has been aborted (crashed).
+						$run_b:=True:C214
+						
+					: ($executing_b=True:C214)
+						// The formula of the daemon is still running.
+						
+					: ($next_t<=$now_t)
+						$run_b:=True:C214
+						
+				End case 
+				
+				If ($run_b)
+					CALL WORKER:C1389($daemonName_t; $executorMethod_t; $daemonName_t)
 				End if 
 				
 			End for each 

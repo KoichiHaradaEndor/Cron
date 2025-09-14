@@ -6,7 +6,7 @@ var $cron_o : cs:C1710.Cron.Cron
 var $daemon_o : cs:C1710.Cron.Daemon
 var $logEntity_o : cs:C1710.LogEntity
 
-ds:C1482.Log.all().drop()
+//ds.Log.all().drop()
 
 $cron_o:=cs:C1710.Cron.Cron.me
 
