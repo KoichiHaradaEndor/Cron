@@ -14,19 +14,13 @@ var $daemon_o : cs:C1710.Daemon
 var $cron_o : cs:C1710.Cron
 
 $cron_o:=cs:C1710.Cron.me
-$daemons_c:=$cron_o._getDaemons()
-$index_l:=$daemons_c.findIndex(Formula:C1597($1.value._name=$2); $daemonName_t)
-If ($index_l=-1)
-	return 
-End if 
-
-$daemon_o:=$daemons_c[$index_l]
-If ($daemon_o._executing=True:C214)
+$daemon_o:=$cron_o._getDaemon($daemonName_t)
+If ($daemon_o=Null:C1517) || ($daemon_o._executing=True:C214)
 	return 
 End if 
 
 // Set executing flag to true to avoid duplicate launch
-$cron_o._setDaemonExecutingFlag($daemonSnapShot_o._name; True:C214)
+$cron_o._setDaemonExecutingFlag($daemonName_t; True:C214)
 
 // Call daemon function
 If ($daemon_o._parameter=Null:C1517)
