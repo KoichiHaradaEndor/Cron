@@ -128,6 +128,19 @@ shared Function _getDaemons() : Collection
 	
 	return This:C1470._daemons
 	
+shared Function _getDaemon($name_t : Text) : cs:C1710.Daemon
+	
+	var $daemons_c : Collection
+	var $index_l : Integer
+	
+	$daemons_c:=This:C1470._getDaemons()
+	$index_l:=$daemons_c.findIndex(Formula:C1597($1.value._name=$2); $name_t)
+	If ($index_l=-1)
+		return 
+	End if 
+	
+	return $daemons_c[$index_l]
+	
 shared Function _setDaemonExecutingFlag($name_t : Text; $flag_b : Boolean)
 	
 	var $index_l : Integer

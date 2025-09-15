@@ -15,8 +15,7 @@ End for each
 // Creates Daemon instance object, then
 // register it object under the cron's management
 $deamonsToInstall_c:=[\
-{name: "DaemondOnDayAtTime"; formula: Formula:C1597(DaemonMethod); interval: "on the 6th day at 18:12"}; \
-{name: "DaemondEveryWeekAtTime"; formula: Formula:C1597(DaemonMethod); interval: "every Saturday at 18:12"}\
+{name: "DaemondEverySec"; formula: Formula:C1597(DaemonMethod); interval: "every 20 seconds"}\
 ]
 //{name: "DaemondSec"; formula: Formula(DaemonMethod); interval: 60};\
 {name: "DaemondOnDayAtTime"; formula: Formula(DaemonMethod); interval: "on the last day at 14:32"}; \

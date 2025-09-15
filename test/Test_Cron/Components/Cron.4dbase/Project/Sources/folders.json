@@ -14,6 +14,8 @@
 		"methods": [
 			"DaemonMethod",
 			"test_CalcNextLaunchTime",
+			"test_pv",
+			"test_pvLaunch",
 			"test_startCron",
 			"test_stopCron",
 			"writeLog"
