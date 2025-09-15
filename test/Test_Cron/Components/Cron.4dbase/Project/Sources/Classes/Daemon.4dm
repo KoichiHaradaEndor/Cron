@@ -284,10 +284,16 @@ Function _calcNextLaunchTime($interval_v : Variant) : Text
 	
 Function _updateNextLaunchTime($interval_v : Variant)
 	
+	// This function must be called in the Cron class function
+	// sicne this function updates attribute value which must be done
+	// inside of Use clause.
 	This:C1470._next:=This:C1470._calcNextLaunchTime($interval_v)
 	
 Function _setExecuting($executing_b : Boolean)
 	
+	// This function must be called in the Cron class function
+	// sicne this function updates attribute value which must be done
+	// inside of Use clause.
 	This:C1470._executing:=$executing_b
 	
 Function _getLastDayNumber($year_l : Integer; $month_l : Integer) : Integer

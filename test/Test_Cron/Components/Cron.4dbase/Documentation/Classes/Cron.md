@@ -41,6 +41,10 @@ Register a given daemon under cron's management.
 
 You can register multiple numbers of daemons as you want.
 
+**Note**:
+
+This function adds copy of the `Daemon` object to the `Cron` object because the `Cron` object is shared and the passed `Daemon` object is not. You should not rely on the `Daemon` object you made after this function is called.
+
 ---
 
 **Cron.delete** (name : Text) -> `Cron`
