@@ -79,6 +79,7 @@
 					"class": "label-lg",
 					"rowFillSource": "LB_bgColor",
 					"rowStrokeSource": "LB_fgColor",
+					"sortable": false,
 					"columns": [
 						{
 							"header": {
