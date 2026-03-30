@@ -1,29 +1,32 @@
+# Data folder
+######################
+[dD][aA][tT][aA]/
+
 # 4D project architecture
 ######################
-
-/Data/*
 /Logs/*
 /Project/DerivedData/*
 /Project/BuildSettings/*
 /Settings/*
 /userPreferences*/*
 /Builds/*
-/Wiki/*
 
-# Don't need the data file, indexes, symbols, or journal
-*.4DD
-*.4DIndx
-*.4DIndy
-*symbols.txt
-*.journal
+# Derived data
+######################
+DerivedData/
 
-# dont need the 4d info component folder_reports
-Folder_Reports
+# Libraries
+Libraries/
 
-# include the following if you want to ignore the database settings
-*.4DSettings
+# User preferences
+######################
+userPreferences.*/
 
-# OS generated files #
+# Uncomment (remove the following # ) to ignore Trash
+######################
+Project/Trash
+
+# System files
 ######################
 .DS_Store
 .DS_Store?
@@ -32,4 +35,3 @@ Folder_Reports
 .Trashes
 ehthumbs.db
 Thumbs.db
-

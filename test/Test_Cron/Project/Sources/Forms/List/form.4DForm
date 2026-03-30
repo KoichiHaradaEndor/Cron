@@ -66,7 +66,7 @@
 		},
 		{
 			"objects": {
-				"List Box": {
+				"log-lb": {
 					"type": "listbox",
 					"left": 20,
 					"top": 130,
@@ -74,12 +74,14 @@
 					"height": 470,
 					"events": [],
 					"listboxType": "collection",
-					"dataSource": "Form:C1466.Log",
-					"currentItemSource": "Form:C1466.LogSelectedItem",
+					"dataSource": "Form:C1466.log.list",
+					"currentItemSource": "Form:C1466.log.currentItem",
 					"class": "label-lg",
 					"rowFillSource": "LB_bgColor",
 					"rowStrokeSource": "LB_fgColor",
 					"sortable": false,
+					"currentItemPositionSource": "Form:C1466.log.currentItemPosition",
+					"selectedItemsSource": "Form:C1466.log.selectedItems",
 					"columns": [
 						{
 							"header": {
@@ -137,7 +139,7 @@
 						}
 					]
 				},
-				"message-dl": {
+				"interval-dl": {
 					"type": "dropdown",
 					"left": 20,
 					"top": 60,
@@ -147,7 +149,7 @@
 						"onDataChange"
 					],
 					"dataSource": "Form:C1466.intervalList",
-					"method": "ObjectMethods/message-dl.4dm",
+					"method": "ObjectMethods/interval-dl.4dm",
 					"class": "label-lg"
 				},
 				"Text": {
@@ -164,7 +166,7 @@
 					"left": 710,
 					"top": 70,
 					"width": 300,
-					"height": 17,
+					"height": 33,
 					"dataSource": "Form:C1466.nextSchedule",
 					"class": "label-lg"
 				}
@@ -172,7 +174,7 @@
 		},
 		{
 			"objects": {
-				"List Box1": {
+				"daemon-lb": {
 					"type": "listbox",
 					"left": 20,
 					"top": 130,
@@ -182,9 +184,11 @@
 						"onSelectionChange"
 					],
 					"listboxType": "collection",
-					"dataSource": "Form:C1466.Daemons",
-					"currentItemSource": "Form:C1466.LogSelectedItem",
+					"dataSource": "Form:C1466.daemon.list",
+					"currentItemSource": "Form:C1466.daemon.currentItem",
 					"class": "label-lg",
+					"currentItemPositionSource": "Form:C1466.daemon.currentItemPosition",
+					"selectedItemsSource": "Form:C1466.daemon.selectedItems",
 					"columns": [
 						{
 							"header": {
@@ -228,7 +232,7 @@
 			}
 		}
 	],
-	"geometryStamp": 346,
+	"geometryStamp": 352,
 	"editor": {
 		"activeView": "View 1",
 		"defaultView": "View 1",
@@ -236,5 +240,6 @@
 			"View 1": {}
 		}
 	},
-	"method": "method.4dm"
+	"method": "method.4dm",
+	"formClass": "ListForm"
 }

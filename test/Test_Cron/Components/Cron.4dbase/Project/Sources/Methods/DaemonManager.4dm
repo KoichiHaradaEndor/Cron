@@ -10,7 +10,7 @@
 */
 
 var $daemons_c; $daemonNames_c; $daemonsSnapShot_c; $indices_c; $processes_c : Collection
-var $daemon_o; $processes_o : Object
+var $daemon_o; $processes_o; $daemonSnapShot_o : Object
 var $status_t; $executorMethod_t; $daemonName_t : Text
 var $interval_l; $index_l : Integer
 var $quit_b; $run_b; $executing_b : Boolean

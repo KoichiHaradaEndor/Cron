@@ -3,6 +3,8 @@ var $names_c; $deamonsToInstall_c : Collection
 var $deamonsToInstall_o : Object
 var $name_t : Text
 var $cron_o : cs:C1710.Cron
+var $daemon_o : cs:C1710.Daemon
+
 
 $cron_o:=cs:C1710.Cron.me
 
