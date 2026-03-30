@@ -1,5 +1,6 @@
 //%attributes = {}
 var $cron_o : cs:C1710.Cron
+var $daemon_o : cs:C1710.Daemon
 
 $cron_o:=cs:C1710.Cron.me
 $daemon_o:=cs:C1710.Daemon.new("pvd"; Formula:C1597(test_pv); 2)

@@ -1,14 +1,14 @@
 # 4D project architecture
 ######################
 
-/Data/*
-/Logs/*
-/Project/DerivedData/*
-/Project/BuildSettings/*
-/Settings/*
-/userPreferences*/*
-/Builds/*
-/Wiki/*
+src/Data/*
+src/Logs/*
+src/Project/DerivedData/*
+src/Project/BuildSettings/*
+src/Settings/*
+src/userPreferences*/*
+src/Builds/*
+src/Libraries/*
 
 # Don't need the data file, indexes, symbols, or journal
 *.4DD
@@ -19,6 +19,9 @@
 
 # dont need the 4d info component folder_reports
 Folder_Reports
+
+# dont need the test folder
+/test/
 
 # include the following if you want to ignore the database settings
 *.4DSettings

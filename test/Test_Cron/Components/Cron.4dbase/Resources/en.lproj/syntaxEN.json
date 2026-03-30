@@ -50,25 +50,14 @@
 		}
 	},
 	"Cron": {
-		"setInterval()": {
-			"Syntax": "**.setInterval**( *interval_l* : Integer ) : cs.Cron.Cron",
+		"add()": {
+			"Syntax": "**.add**( *daemon_o* : cs.Cron.Daemon ) : cs.Cron.Cron",
 			"Params": [
 				[
-					"interval_l",
-					"Integer",
+					"daemon_o",
+					"cs.Cron.Daemon",
 					"->"
 				],
-				[
-					"",
-					"cs.Cron.Cron",
-					"<-"
-				]
-			],
-			"Summary": ""
-		},
-		"start()": {
-			"Syntax": "**.start**() : cs.Cron.Cron",
-			"Params": [
 				[
 					"",
 					"cs.Cron.Cron",
@@ -93,17 +82,6 @@
 			],
 			"Summary": ""
 		},
-		"getDaemonNames()": {
-			"Syntax": "**.getDaemonNames**() : Collection",
-			"Params": [
-				[
-					"",
-					"Collection",
-					"<-"
-				]
-			],
-			"Summary": ""
-		},
 		"stop()": {
 			"Syntax": "**.stop**() : cs.Cron.Cron",
 			"Params": [
@@ -115,17 +93,39 @@
 			],
 			"Summary": ""
 		},
-		"add()": {
-			"Syntax": "**.add**( *daemon_o* : cs.Cron.Daemon ) : cs.Cron.Cron",
+		"start()": {
+			"Syntax": "**.start**() : cs.Cron.Cron",
 			"Params": [
 				[
-					"daemon_o",
-					"cs.Cron.Daemon",
+					"",
+					"cs.Cron.Cron",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"setInterval()": {
+			"Syntax": "**.setInterval**( *interval_l* : Integer ) : cs.Cron.Cron",
+			"Params": [
+				[
+					"interval_l",
+					"Integer",
 					"->"
 				],
 				[
 					"",
 					"cs.Cron.Cron",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"getDaemonNames()": {
+			"Syntax": "**.getDaemonNames**() : Collection",
+			"Params": [
+				[
+					"",
+					"Collection",
 					"<-"
 				]
 			],
